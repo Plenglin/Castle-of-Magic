@@ -20,7 +20,6 @@ public class Health : NetworkBehaviour {
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Debug.Log("Dead!");
         }
     }
 
@@ -33,9 +32,7 @@ public class Health : NetworkBehaviour {
 
 	void Update() {
 		if (isServer) {
-			Debug.Log ("is serv");
 			TakeDamage(1);
 		}
-		Debug.Log ("is cli");
 	}
 }
