@@ -8,7 +8,7 @@ public class GlobalColorChangingClient : NetworkBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (GetComponent<NetworkIdentity> ().netId == this.netId) {
+		if (isLocalPlayer) {
 			if (Input.GetKeyDown (KeyCode.P)) {
 				Debug.Log ("wanna change color");
 				CmdChangeColor ();
