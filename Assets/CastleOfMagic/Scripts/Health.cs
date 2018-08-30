@@ -25,7 +25,7 @@ public class Health : NetworkBehaviour {
 
     void OnChangeHealth (int health)
     {
-		if (GetComponent<NetworkIdentity> ().netId == this.netId) {
+		if (isLocalPlayer) {
 			GameObject.FindGameObjectWithTag ("HealthLabel").GetComponent<Text> ().text = health.ToString ();
 		}
     }
