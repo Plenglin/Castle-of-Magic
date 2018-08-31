@@ -7,11 +7,11 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/CastleOfMagic/Scenes/Menu.unity
-    guid: 440e8c3e1b49d7144ad8cbc49971e8b6
-  - enabled: 1
-    path: Assets/CastleOfMagic/Scenes/Game.unity
-    guid: 240d98475693da34893bf8e6cd7828e4
+    guid: df1c2050bc7e8425789b529a79e80f4b
   - enabled: 1
     path: Assets/CastleOfMagic/Scenes/Lobby.unity
-    guid: 548ff5738754aac458e7b5091515fc17
+    guid: c9ef55dd03bfe42ab8a002a492820a2c
+  - enabled: 1
+    path: Assets/CastleOfMagic/Scenes/Game.unity
+    guid: bc695723c880c406e97efe0175a3afc1
   m_configObjects: {}
