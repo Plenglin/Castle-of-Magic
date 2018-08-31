@@ -8,21 +8,22 @@ public class GlobalColorChangingClient : NetworkBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (isLocalPlayer) {
-			if (Input.GetKeyDown (KeyCode.P)) {
-				Debug.Log ("wanna change color");
-				CmdChangeColor ();
-			}
+        if (!isLocalPlayer) { return; }
+		
+        if (Input.GetKeyDown (KeyCode.P)) {
+			Debug.Log ("wanna change color");
+			CmdChangeColor ();
 		}
 	}
 
 	[Command]
 	public void CmdChangeColor() {
-		Debug.Log ("gonna change color");
-		GameObject o = GameObject.FindWithTag ("ColorBoi");
+		Debug.Log("gonna change color");
+        Color c = new Color(Random.value, Random.value, Random.value);
+
+        GameObject o = GameObject.FindWithTag("ColorBoi");
 		ColorChangingParent p = o.GetComponent<ColorChangingParent> ();
-		Color c = new Color (Random.value, Random.value, Random.value);
 		p.color = c;
 	}
-		
+	
 }
