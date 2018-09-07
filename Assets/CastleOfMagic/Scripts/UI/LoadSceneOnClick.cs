@@ -7,18 +7,22 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoadSceneOnClick: MonoBehaviour {
+namespace CastleMagic.UI {
 
-    public string scene;
+    public class LoadSceneOnClick : MonoBehaviour {
 
-    private UnityAction action;
+        public string scene;
 
-    private void Start() {
-        action += DoLoadScene;
-        GetComponent<Button>().onClick.AddListener(action);
+        private UnityAction action;
+
+        private void Start() {
+            action += DoLoadScene;
+            GetComponent<Button>().onClick.AddListener(action);
+        }
+
+        public void DoLoadScene() {
+            SceneManager.LoadScene(scene);
+        }
     }
 
-    public void DoLoadScene() {
-        SceneManager.LoadScene(scene);
-    }
 }
