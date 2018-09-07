@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class GameStateManager : NetworkBehaviour {
+namespace CastleMagic.Game {
 
-    private NetworkLobbyManager networkManager;
+    public class GameStateManager : NetworkBehaviour {
 
-    // Use this for initialization
-    void Start () {
-        networkManager = GetComponent<NetworkLobbyManager>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        private NetworkLobbyManager networkManager;
+
+        // Use this for initialization
+        void Start() {
+            networkManager = GetComponent<NetworkLobbyManager>();
+        }
+
+        // Update is called once per frame
+        void Update() {
+
+        }
+    }
+
 }
