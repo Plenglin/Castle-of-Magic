@@ -11,7 +11,7 @@ namespace CastleMagic.Util {
     /// </summary>
     public class HexBoard {
     
-        private readonly BitArray[] openTiles;
+        public readonly BitArray[] openTiles;
         private readonly Dictionary<HexCoord, HexCoord> wormholes = new Dictionary<HexCoord, HexCoord>();
         private readonly int width, height;
 
@@ -45,7 +45,7 @@ namespace CastleMagic.Util {
                 if (energyLeft < 0) {
                     continue;
                 }
-                if (canPassThrough(coord)) {
+                if (IsValidPosition(coord) && canPassThrough(coord)) {
                     if (canLandOn(coord)) {
                         yield return Tuple.Create(coord, energyLeft);
                     }
@@ -62,6 +62,13 @@ namespace CastleMagic.Util {
 
         }
 
+        public bool IsValidPosition(HexCoord coord) {
+            if (!coord.IsValidCoordinate() || 0 > coord.x || coord.x >= width || 0 > coord.y || coord.y >= height) {
+                return false;
+            }
+            return openTiles[coord.x][coord.y];
+        }
+
         public void CreateWormholePair(HexCoord a, HexCoord b) {
             wormholes[a] = b;
             wormholes[b] = a;
@@ -70,6 +77,13 @@ namespace CastleMagic.Util {
         public void DeleteWormholePair(HexCoord a, HexCoord b) {
             wormholes.Remove(a);
             wormholes.Remove(b);
+        }
+
+        public static void Main() {
+            HexBoard board = new HexBoard(10, 10);
+            foreach (var c in board.PerformBFS(HexCoord.CreateXY(5, 5), 3, _ => true, _ => true)) {
+                Console.WriteLine(c);
+            }
         }
 
     }
