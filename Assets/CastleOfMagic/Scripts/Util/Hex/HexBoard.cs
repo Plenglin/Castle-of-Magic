@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-namespace CastleMagic.Util {
+namespace CastleMagic.Util.Hex {
 
     /// <summary>
     /// A representation of a hex board. Internally, coordinates in 2D arrays are stored as axial (x,y)

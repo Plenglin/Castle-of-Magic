@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CastleMagic.Util {
+namespace CastleMagic.Util.Hex {
 
     public class HexCoord {
-        public readonly int x;
-        public readonly int y;
-        public readonly int z;
 
         public static readonly HexCoord RIGHT = new HexCoord(0, -1, 1);
         public static readonly HexCoord LEFT = new HexCoord(0, 1, -1);
@@ -14,6 +11,13 @@ namespace CastleMagic.Util {
         public static readonly HexCoord DOWN_R = new HexCoord(-1, 0, 1);
         public static readonly HexCoord UP_R = new HexCoord(1, -1, 0);
         public static readonly HexCoord DOWN_L = new HexCoord(-1, 1, 0);
+
+        public static readonly float HEX_WIDTH = 1f;
+        public static readonly float HEX_HEIGHT = 1.154700538f;
+
+        public readonly int x;
+        public readonly int y;
+        public readonly int z;
 
         public static readonly HexCoord[] DIRECTIONS = {RIGHT, DOWN_R, DOWN_L, LEFT, UP_L, UP_R};
 
