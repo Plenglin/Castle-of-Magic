@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace CastleMagic.Util.Hex {
 
-    [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
+    [RequireComponent(typeof(MeshCollider))]
     public class HexMesh : MonoBehaviour {
 
         private Vector3[] vertices;
@@ -23,6 +23,7 @@ namespace CastleMagic.Util.Hex {
             mesh.name = "Procedural Hex Grid";
             mesh.vertices = vertices;
             mesh.triangles = triangles;
+            GetComponent<MeshCollider>().sharedMesh = mesh;
             GetComponent<MeshFilter>().mesh = mesh;
         }
 
@@ -76,14 +77,24 @@ namespace CastleMagic.Util.Hex {
 
                 }
             }
-            /*triangles[0] = 1;
-            triangles[1] = 4;
-            triangles[2] = 5;*/
         }
 
-        // Update is called once per frame
+        public HexCoord TriangleToHex(int triangleIndex) {
+            var hexIndex = triangleIndex >> 2;
+            var y = hexIndex / width;
+            var x = hexIndex % width;
+            return HexCoord.CreateXY(x, y);
+        }
+        
         void Update() {
-
+            /*
+            // TriangleToHex test
+            var mouse = Input.mousePosition;
+            var ray = Camera.current.ScreenPointToRay(mouse);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit)) {
+                Debug.Log(TriangleToHex(hit.triangleIndex));
+            }*/
         }
 
         private void OnDrawGizmos() {

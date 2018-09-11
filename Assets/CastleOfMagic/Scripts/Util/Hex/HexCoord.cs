@@ -73,6 +73,10 @@ namespace CastleMagic.Util.Hex {
             return coords;
         }
 
+        public override String ToString() {
+            return $"<Hex {x},{y},{z}>";
+        }
+
         public static HexCoord CreateXY(int x, int y) {
             return new HexCoord(x, y, -x - y);
         }
@@ -84,5 +88,6 @@ namespace CastleMagic.Util.Hex {
         public static HexCoord CreateXZ(int x, int z) {
             return new HexCoord(x, -x - z, z);
         }
+
     }
 }
