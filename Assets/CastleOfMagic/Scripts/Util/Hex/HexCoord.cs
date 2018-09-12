@@ -5,12 +5,13 @@ namespace CastleMagic.Util.Hex {
 
     public class HexCoord {
 
-        public static readonly HexCoord RIGHT = new HexCoord(0, -1, 1);
-        public static readonly HexCoord LEFT = new HexCoord(0, 1, -1);
-        public static readonly HexCoord UP_L = new HexCoord(1, 0, -1);
-        public static readonly HexCoord DOWN_R = new HexCoord(-1, 0, 1);
-        public static readonly HexCoord UP_R = new HexCoord(1, -1, 0);
-        public static readonly HexCoord DOWN_L = new HexCoord(-1, 1, 0);
+        public static readonly HexCoord ZERO = new HexCoord(0, 0, 0);
+        public static readonly HexCoord RIGHT = new HexCoord(0, 1, -1);
+        public static readonly HexCoord LEFT = new HexCoord(0, -1, 1);
+        public static readonly HexCoord UP_L = new HexCoord(-1, 0, 1);
+        public static readonly HexCoord DOWN_R = new HexCoord(1, 0, -1);
+        public static readonly HexCoord UP_R = new HexCoord(-1, 1, 0);
+        public static readonly HexCoord DOWN_L = new HexCoord(1, -1, 0);
 
         public static readonly float HEX_WIDTH = 1f;
         public static readonly float HEX_HEIGHT = 1.154700538f;
