@@ -19,10 +19,11 @@ namespace CastleMagic.Util.Hex {
             GenerateVertices();
             GenerateTriangles();
 
-            mesh = new Mesh();
-            mesh.name = "Procedural Hex Grid";
-            mesh.vertices = vertices;
-            mesh.triangles = triangles;
+            mesh = new Mesh {
+                name = "Procedural Hex Grid",
+                vertices = vertices,
+                triangles = triangles
+            };
             GetComponent<MeshCollider>().sharedMesh = mesh;
             GetComponent<MeshFilter>().mesh = mesh;
         }
@@ -40,8 +41,8 @@ namespace CastleMagic.Util.Hex {
                         int index = indexOffsets[i] + x;
                         vertices[index] = new Vector3(
                             y + x + xOffsets[i],
-                            1.5f * HexCoord.HEX_HEIGHT * y + yOffsets[i],
-                            0f
+                            0f,
+                            1.5f * HexCoord.HEX_HEIGHT * y + yOffsets[i]
                         );
                     }
                 }
@@ -59,20 +60,20 @@ namespace CastleMagic.Util.Hex {
                     int yOffset2 = (2 * y + 2) * vertRowOffset;
                     int yOffset3 = (2 * y + 3) * vertRowOffset;
 
-                    triangles[triIndexOffset + 0] = yOffset0 + x + 1;
-                    triangles[triIndexOffset + 1] = yOffset1 + x + 1;
+                    triangles[triIndexOffset + 0] = yOffset1 + x + 1;
+                    triangles[triIndexOffset + 1] = yOffset0 + x + 1;
                     triangles[triIndexOffset + 2] = yOffset1 + x;
 
-                    triangles[triIndexOffset + 3] = yOffset1 + x;
+                    triangles[triIndexOffset + 3] = yOffset2 + x;
                     triangles[triIndexOffset + 4] = yOffset1 + x + 1;
-                    triangles[triIndexOffset + 5] = yOffset2 + x;
+                    triangles[triIndexOffset + 5] = yOffset1 + x;
 
-                    triangles[triIndexOffset + 6] = yOffset2 + x + 1;
+                    triangles[triIndexOffset + 6] = yOffset1 + x + 1;
                     triangles[triIndexOffset + 7] = yOffset2 + x;
-                    triangles[triIndexOffset + 8] = yOffset1 + x + 1;
+                    triangles[triIndexOffset + 8] = yOffset2 + x + 1;
 
-                    triangles[triIndexOffset + 9] = yOffset3 + x;
-                    triangles[triIndexOffset + 10] = yOffset2 + x;
+                    triangles[triIndexOffset + 9] = yOffset2 + x;
+                    triangles[triIndexOffset + 10] = yOffset3 + x;
                     triangles[triIndexOffset + 11] = yOffset2 + x + 1;
 
                 }
@@ -85,25 +86,6 @@ namespace CastleMagic.Util.Hex {
             var x = hexIndex % width;
             return HexCoord.CreateXY(x, y);
         }
-        
-        void Update() {
-            /*
-            // TriangleToHex test
-            var mouse = Input.mousePosition;
-            var ray = Camera.current.ScreenPointToRay(mouse);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit)) {
-                Debug.Log(TriangleToHex(hit.triangleIndex));
-            }*/
-        }
 
-        private void OnDrawGizmos() {
-            if (vertices == null) {
-                return;
-            }
-            foreach (var v in vertices) {
-                Gizmos.DrawSphere(v, 0.1f);
-            }
-        }
     }
 }

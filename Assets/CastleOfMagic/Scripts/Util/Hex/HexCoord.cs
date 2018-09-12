@@ -89,5 +89,24 @@ namespace CastleMagic.Util.Hex {
             return new HexCoord(x, -x - z, z);
         }
 
+        public static HexCoord CreateRoundedXYZ(float x, float y, float z) {
+            var rx = (int)x;
+            var ry = (int)y;
+            var rz = (int)z;
+
+            var dx = Math.Abs(rx - x);
+            var dy = Math.Abs(ry - y);
+            var dz = Math.Abs(rz - z);
+
+            if (dx > dy && dx > dz) {
+                rx = -ry - rz;
+            } else if (dy > dz) {
+                ry = -rx - rz;
+            } else {
+                rz = -rx - ry;
+            }
+            return new HexCoord(rx, ry, rz);
+        }
+
     }
 }
