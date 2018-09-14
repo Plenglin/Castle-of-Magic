@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CastleMagic.Util.Hex {
 
@@ -91,9 +92,9 @@ namespace CastleMagic.Util.Hex {
         }
 
         public static HexCoord CreateRoundedXYZ(float x, float y, float z) {
-            var rx = (int)x;
-            var ry = (int)y;
-            var rz = (int)z;
+            var rx = (int) Mathf.Round(x);
+            var ry = (int) Mathf.Round(y);
+            var rz = (int) Mathf.Round(z);
 
             var dx = Math.Abs(rx - x);
             var dy = Math.Abs(ry - y);

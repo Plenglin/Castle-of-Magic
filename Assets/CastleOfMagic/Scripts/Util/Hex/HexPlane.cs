@@ -4,25 +4,27 @@ using System.Collections;
 namespace CastleMagic.Util.Hex {
     public class HexPlane : MonoBehaviour {
 
-        private Plane plane = new Plane(Vector3.up, Vector3.zero);
+        private Plane plane = new Plane(Vector3.down, 0);
         public float scale = 1.0f;
 
         public HexCoord RaycastToHex(Ray ray) {
-            var relativeRay = new Ray(transform.TransformPoint(ray.origin), transform.TransformDirection(ray.direction));
+            var relativeRay = new Ray(transform.InverseTransformPoint(ray.origin), transform.InverseTransformDirection(ray.direction));
             Debug.DrawRay(ray.origin, 10 * ray.direction, Color.white);
+            //Debug.DrawRay(relativeRay.origin, 10 * relativeRay.direction, Color.black);
             float dist;
             plane.Raycast(relativeRay, out dist);
             if (dist < 0) {
                 return null;
             }
             var hit = ray.GetPoint(dist);
-            return PlanePositionToHex(hit.x, hit.y);
+            return PlanePositionToHex(hit.x, hit.z);
         }
 
         public HexCoord PlanePositionToHex(float x, float y) {
-            var tx = -y * 2 / Constants.SQRT3;
+            var tx = y * -2 / Constants.SQRT3;
             var ty = x + y / Constants.SQRT3;
             return HexCoord.CreateRoundedXYZ(tx, ty, -tx - ty);
+            //return HexCoord.CreateXY((int)tx, (int)ty);
         }
 
         public Vector3 HexToPlanePosition(HexCoord hex) {
@@ -33,7 +35,7 @@ namespace CastleMagic.Util.Hex {
             Debug.Log(RaycastToHex(Camera.current.ScreenPointToRay(Input.mousePosition)));
         }
 
-        private void OnDrawGizmosSelected() {
+        private void OnDrawGizmos() {
             var length = 3 * scale;
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, length * HexToPlanePosition(HexCoord.RIGHT));
@@ -42,7 +44,15 @@ namespace CastleMagic.Util.Hex {
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(transform.position, length * HexToPlanePosition(HexCoord.UP_R));
             Gizmos.color = Color.white;
-            Gizmos.DrawSphere(transform.position, scale);
+            Gizmos.DrawWireSphere(transform.position, scale);
+        }
+
+        private void OnDrawGizmosSelected() {
+            for (int x=0; x < 5; x++) {
+                for (int y=0; y < 5; y++) {
+                    Gizmos.DrawSphere(HexToPlanePosition(HexCoord.CreateXY(x, y)), 0.1f * scale);
+                }
+            }
         }
 
     }
