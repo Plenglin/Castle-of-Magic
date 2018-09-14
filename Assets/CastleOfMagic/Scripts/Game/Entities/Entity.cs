@@ -11,10 +11,12 @@ namespace CastleMagic.Game.Entites
     {
         public HexCoord position;
 
-        protected int maxEnergy;
-        protected int energy;
-        protected int maxHealth;
-        protected int health;
-        protected bool invunerable;
+        public int maxEnergy;
+        public int energy;
+        public int maxHealth;
+        public int health;
+        public bool invunerable;
+
+        protected EntityClass entityClass;
     }
 }
