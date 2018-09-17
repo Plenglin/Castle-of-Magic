@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CastleMagic.Util.Hex {
 
     public class HexCoord {
 
-        public static readonly HexCoord RIGHT = new HexCoord(0, -1, 1);
-        public static readonly HexCoord LEFT = new HexCoord(0, 1, -1);
-        public static readonly HexCoord UP_L = new HexCoord(1, 0, -1);
-        public static readonly HexCoord DOWN_R = new HexCoord(-1, 0, 1);
-        public static readonly HexCoord UP_R = new HexCoord(1, -1, 0);
-        public static readonly HexCoord DOWN_L = new HexCoord(-1, 1, 0);
+        public static readonly HexCoord ZERO = new HexCoord(0, 0, 0);
+        public static readonly HexCoord RIGHT = new HexCoord(0, 1, -1);
+        public static readonly HexCoord LEFT = new HexCoord(0, -1, 1);
+        public static readonly HexCoord UP_L = new HexCoord(-1, 0, 1);
+        public static readonly HexCoord DOWN_R = new HexCoord(1, 0, -1);
+        public static readonly HexCoord UP_R = new HexCoord(-1, 1, 0);
+        public static readonly HexCoord DOWN_L = new HexCoord(1, -1, 0);
 
         public static readonly float HEX_WIDTH = 1f;
         public static readonly float HEX_HEIGHT = 1.154700538f;
@@ -73,6 +75,10 @@ namespace CastleMagic.Util.Hex {
             return coords;
         }
 
+        public override String ToString() {
+            return $"<Hex {x},{y},{z}>";
+        }
+
         public static HexCoord CreateXY(int x, int y) {
             return new HexCoord(x, y, -x - y);
         }
@@ -84,5 +90,25 @@ namespace CastleMagic.Util.Hex {
         public static HexCoord CreateXZ(int x, int z) {
             return new HexCoord(x, -x - z, z);
         }
+
+        public static HexCoord CreateRoundedXYZ(float x, float y, float z) {
+            var rx = (int) Mathf.Round(x);
+            var ry = (int) Mathf.Round(y);
+            var rz = (int) Mathf.Round(z);
+
+            var dx = Math.Abs(rx - x);
+            var dy = Math.Abs(ry - y);
+            var dz = Math.Abs(rz - z);
+
+            if (dx > dy && dx > dz) {
+                rx = -ry - rz;
+            } else if (dy > dz) {
+                ry = -rx - rz;
+            } else {
+                rz = -rx - ry;
+            }
+            return new HexCoord(rx, ry, rz);
+        }
+
     }
 }

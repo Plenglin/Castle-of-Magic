@@ -70,6 +70,12 @@ namespace CastleMagic.Util.Hex {
         }
 
         public void CreateWormholePair(HexCoord a, HexCoord b) {
+            if (wormholes.ContainsKey(a)) {
+                throw new ArgumentException($"{a} is already a wormhole!");
+            }
+            if (wormholes.ContainsKey(b)) {
+                throw new ArgumentException($"{b} is already a wormhole!");
+            }
             wormholes[a] = b;
             wormholes[b] = a;
         }
@@ -77,13 +83,6 @@ namespace CastleMagic.Util.Hex {
         public void DeleteWormholePair(HexCoord a, HexCoord b) {
             wormholes.Remove(a);
             wormholes.Remove(b);
-        }
-
-        public static void Main() {
-            HexBoard board = new HexBoard(10, 10);
-            foreach (var c in board.PerformBFS(HexCoord.CreateXY(5, 5), 3, _ => true, _ => true)) {
-                Console.WriteLine(c);
-            }
         }
 
     }
