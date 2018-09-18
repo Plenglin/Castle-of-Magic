@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CastleMagic.Util.Hex {
 
-    public class HexCoord {
+    public struct HexCoord {
 
         public static readonly HexCoord ZERO = new HexCoord(0, 0, 0);
         public static readonly HexCoord RIGHT = new HexCoord(0, 1, -1);

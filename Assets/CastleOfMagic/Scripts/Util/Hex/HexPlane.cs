@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace CastleMagic.Util.Hex {
     public class HexPlane : MonoBehaviour {
@@ -7,7 +8,7 @@ namespace CastleMagic.Util.Hex {
         private Plane plane = new Plane(Vector3.down, 0);
         public float scale = 1.0f;
 
-        public HexCoord RaycastToHex(Ray ray) {
+        public HexCoord? RaycastToHex(Ray ray) {
             var relativeRay = new Ray(transform.InverseTransformPoint(ray.origin), transform.InverseTransformDirection(ray.direction));
             Debug.DrawRay(ray.origin, 10 * ray.direction, Color.white);
             //Debug.DrawRay(relativeRay.origin, 10 * relativeRay.direction, Color.black);
@@ -18,6 +19,10 @@ namespace CastleMagic.Util.Hex {
             }
             var hit = ray.GetPoint(dist);
             return PlanePositionToHex(hit.x, hit.z);
+        }
+
+        public Vector3 HexToWorldPosition(HexCoord pos) {
+            return transform.TransformPoint(HexToPlanePosition(pos));
         }
 
         public HexCoord PlanePositionToHex(float x, float y) {
