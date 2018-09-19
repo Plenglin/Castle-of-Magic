@@ -18,9 +18,9 @@ namespace CastleMagic.Util.Hex {
         public static readonly float HEX_WIDTH = 1f;
         public static readonly float HEX_HEIGHT = 1.154700538f;
 
-        public int x;
-        public int y;
-        public int z;
+        public readonly int x;
+        public readonly int y;
+        public readonly int z;
 
         public static readonly HexCoord[] DIRECTIONS = {RIGHT, DOWN_R, DOWN_L, LEFT, UP_L, UP_R};
 

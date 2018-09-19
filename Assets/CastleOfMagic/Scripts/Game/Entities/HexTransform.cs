@@ -12,19 +12,18 @@ namespace CastleMagic.Game.Entites {
 
         public HexCoord position = HexCoord.ZERO;
         private HexPlane plane;
-        protected EntityController controller;
 
         private void Awake() {
             plane = GameObject.FindWithTag("Board").GetComponent<HexPlane>();
         }
 
-        public void AttachToController(EntityController controller) {
-            this.controller = controller;
+        private void Update() {
+            transform.position = plane.HexToWorldPosition(position);
         }
 
-        public void OnPositionChanged(HexCoord newPos) {
-            transform.position = plane.HexToWorldPosition(newPos);
-            this.position = newPos;
+        [ClientRpc]
+        public void RpcPositionChanged(HexCoord pos) {
+            position = pos;
         }
 
     }

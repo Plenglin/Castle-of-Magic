@@ -26,12 +26,6 @@ namespace CastleMagic.Game.Entites {
 
         private void Awake() {
             entity = GetComponent<HexTransform>();
-            entity.AttachToController(this);
-        }
-
-        [ClientRpc]
-        public void RpcPositionChanged(HexCoord pos) {
-            entity.OnPositionChanged(pos);
         }
 
     }
