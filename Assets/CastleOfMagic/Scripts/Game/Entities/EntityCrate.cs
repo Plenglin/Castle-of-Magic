@@ -8,7 +8,7 @@ namespace CastleMagic.Game.Entites {
 
         // Use this for initialization
         void Start() {
-            entity.OnPositionChanged(HexCoord.CreateXY(2, 5));
+            //entity.OnPositionChanged(HexCoord.CreateXY(2, 5));
         }
 
         // Update is called once per frame
