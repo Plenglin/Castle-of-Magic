@@ -37,7 +37,7 @@ namespace CastleMagic.Util.Hex {
         }
 
         private void Update() {
-            Debug.Log(RaycastToHex(Camera.current.ScreenPointToRay(Input.mousePosition)));
+            //Debug.Log(RaycastToHex(Camera.main.ScreenPointToRay(Input.mousePosition)));
         }
 
         private void OnDrawGizmos() {
@@ -53,8 +53,8 @@ namespace CastleMagic.Util.Hex {
         }
 
         private void OnDrawGizmosSelected() {
-            for (int x=0; x < 5; x++) {
-                for (int y=0; y < 5; y++) {
+            for (int x=0; x < 10; x++) {
+                for (int y=0; y < 10; y++) {
                     Gizmos.DrawSphere(HexToPlanePosition(HexCoord.CreateXY(x, y)), 0.1f * scale);
                 }
             }

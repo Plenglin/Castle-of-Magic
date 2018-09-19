@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace CastleMagic.Util.Hex {
 
+    [Serializable]
     public struct HexCoord {
 
         public static readonly HexCoord ZERO = new HexCoord(0, 0, 0);
@@ -17,9 +18,9 @@ namespace CastleMagic.Util.Hex {
         public static readonly float HEX_WIDTH = 1f;
         public static readonly float HEX_HEIGHT = 1.154700538f;
 
-        public readonly int x;
-        public readonly int y;
-        public readonly int z;
+        public int x;
+        public int y;
+        public int z;
 
         public static readonly HexCoord[] DIRECTIONS = {RIGHT, DOWN_R, DOWN_L, LEFT, UP_L, UP_R};
 

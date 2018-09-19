@@ -8,8 +8,9 @@ namespace CastleMagic.Game.Entites {
     /// <summary>
     /// Represents any object that has a position on the board and cannot be passed through.
     /// </summary>
-    public abstract class EntityRenderer : NetworkBehaviour {
+    public class HexTransform : NetworkBehaviour {
 
+        public HexCoord position = HexCoord.ZERO;
         private HexPlane plane;
         protected EntityController controller;
 
@@ -23,6 +24,7 @@ namespace CastleMagic.Game.Entites {
 
         public void OnPositionChanged(HexCoord newPos) {
             transform.position = plane.HexToWorldPosition(newPos);
+            this.position = newPos;
         }
 
     }

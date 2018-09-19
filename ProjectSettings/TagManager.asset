@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HealthLabel
   - ColorBoi
+  - Board
   layers:
   - Default
   - TransparentFX

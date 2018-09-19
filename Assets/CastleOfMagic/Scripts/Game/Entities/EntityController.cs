@@ -10,7 +10,7 @@ namespace CastleMagic.Game.Entites {
     /// Dictates modifiers to the entity's stats, skills, whatever.
     /// Could represent anything. A crate, a mage, a tree, whatever you desire.
     /// </summary>
-    [RequireComponent(typeof(EntityRenderer))]
+    [RequireComponent(typeof(HexTransform))]
     public class EntityController : NetworkBehaviour {
 
         public int maxEnergy;
@@ -22,10 +22,10 @@ namespace CastleMagic.Game.Entites {
         [SyncVar]
         public bool invunerable;
 
-        protected EntityRenderer entity;
+        protected HexTransform entity;
 
         private void Awake() {
-            entity = GetComponent<EntityRenderer>();
+            entity = GetComponent<HexTransform>();
             entity.AttachToController(this);
         }
 
