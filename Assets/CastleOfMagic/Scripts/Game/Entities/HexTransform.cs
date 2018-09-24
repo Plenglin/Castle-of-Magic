@@ -27,10 +27,5 @@ namespace CastleMagic.Game.Entites {
             plane = GameObject.FindWithTag("Board").GetComponent<HexPlane>();
         }
 
-        [ClientRpc]
-        public void RpcPositionChanged(HexCoord pos) {
-            position = pos;
-        }
-
     }
 }
