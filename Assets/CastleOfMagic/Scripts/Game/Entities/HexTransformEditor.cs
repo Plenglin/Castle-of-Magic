@@ -4,6 +4,7 @@ using CastleMagic.Util.Hex;
 
 namespace CastleMagic.Game.Entites {
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(HexTransform))]
     public class HexTransformEditor : Editor {
 
@@ -17,4 +18,5 @@ namespace CastleMagic.Game.Entites {
             EditorUtility.SetDirty(target);
         }
     }
+#endif
 }
