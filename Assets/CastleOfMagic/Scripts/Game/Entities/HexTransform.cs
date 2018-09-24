@@ -20,7 +20,7 @@ namespace CastleMagic.Game.Entites {
                 position = value;
                 transform.position = plane.HexToWorldPosition(position);
             }
-        };
+        }
         private HexPlane plane;
 
         private void Start() {
