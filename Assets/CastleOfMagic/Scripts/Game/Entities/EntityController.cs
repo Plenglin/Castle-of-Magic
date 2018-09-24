@@ -24,7 +24,7 @@ namespace CastleMagic.Game.Entites {
 
         protected HexTransform entity;
 
-        private void Awake() {
+        private void Start() {
             entity = GetComponent<HexTransform>();
         }
 
