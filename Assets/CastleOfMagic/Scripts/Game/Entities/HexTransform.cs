@@ -18,12 +18,15 @@ namespace CastleMagic.Game.Entites {
             }
             set { 
                 position = value;
-                transform.position = plane.HexToWorldPosition(position);
+                if (plane != null) {
+                    transform.position = plane.HexToWorldPosition(position);
+                }
             }
         }
         private HexPlane plane;
 
         private void Start() {
+            Debug.Log("memes");
             plane = GameObject.FindWithTag("Board").GetComponent<HexPlane>();
         }
 
