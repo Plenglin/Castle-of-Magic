@@ -23,6 +23,11 @@ namespace CastleMagic.Util.Hex {
             return PlanePositionToHex(hit.x, hit.z);
         }
 
+        public bool RaycastToHex(Ray ray, out HexCoord? hit) {
+            hit = RaycastToHex(ray);
+            return hit != null;
+        }
+
         public Vector3 HexToWorldPosition(HexCoord pos) {
             return transform.TransformPoint(HexToPlanePosition(pos));
         }

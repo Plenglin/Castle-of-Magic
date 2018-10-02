@@ -26,7 +26,6 @@ namespace CastleMagic.Game.Entites {
         private HexPlane plane;
 
         private void Start() {
-            Debug.Log("memes");
             plane = GameObject.FindWithTag("Board").GetComponent<HexPlane>();
         }
 
