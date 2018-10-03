@@ -9,9 +9,11 @@ namespace CastleMagic.Util.Hex {
     /// A representation of a hex board. Internally, coordinates in 2D arrays are stored as axial (x,y)
     /// coordinates. Internal arrays are accessed as <code>array[x][y]</code>.
     /// </summary>
+    [Serializable]
     public class HexBoard {
     
         public readonly BitArray[] openTiles;
+
         private readonly Dictionary<HexCoord, HexCoord> wormholes = new Dictionary<HexCoord, HexCoord>();
         private readonly int width, height;
 

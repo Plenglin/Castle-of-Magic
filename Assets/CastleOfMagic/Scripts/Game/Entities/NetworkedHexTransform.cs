@@ -13,13 +13,11 @@ namespace CastleMagic.Game.Entites {
         // Use this for initialization
         void Start() {
             trs = GetComponent<HexTransform>();
-        }
-
-        // Update is called once per frame
-        void Update() {
-            if (isServer) {
-                RpcSetPosition(trs.Position);
-            }
+            trs.OnPositionChanged += (delta) => {
+                if (isServer) {
+                    RpcSetPosition(delta.end);
+                }
+            };
         }
 
         [ClientRpc]

@@ -112,4 +112,13 @@ namespace CastleMagic.Util.Hex {
         }
 
     }
+
+    public struct PositionDelta {
+        public HexCoord start, end;
+        public PositionDelta(HexCoord start, HexCoord end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
 }

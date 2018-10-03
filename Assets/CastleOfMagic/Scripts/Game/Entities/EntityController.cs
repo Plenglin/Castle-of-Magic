@@ -22,10 +22,19 @@ namespace CastleMagic.Game.Entites {
         [SyncVar]
         public bool invunerable;
 
-        protected HexTransform entity;
+        public HexTransform HexTransform {
+            get;
+            private set;
+        }
+
+        public BoardManager BoardManager {
+            get;
+            private set;
+        }
 
         private void Start() {
-            entity = GetComponent<HexTransform>();
+            HexTransform = GetComponent<HexTransform>();
+            BoardManager = GameObject.FindWithTag("Board").GetComponent<BoardManager>();
         }
 
     }
