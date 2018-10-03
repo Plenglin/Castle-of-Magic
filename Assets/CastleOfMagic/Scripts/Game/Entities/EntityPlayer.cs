@@ -1,8 +1,6 @@
 ﻿using System;
-namespace CastleMagic.Game.Entites
-{
-    public class EntityPlayer : EntityController
-    {
+namespace CastleMagic.Game.Entites {
+    public class EntityPlayer : EntityController {
         
     }
 }

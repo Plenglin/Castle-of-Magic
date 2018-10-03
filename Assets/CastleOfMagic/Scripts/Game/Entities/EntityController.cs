@@ -12,7 +12,7 @@ namespace CastleMagic.Game.Entites {
     /// </summary>
     [RequireComponent(typeof(HexTransform))]
     public class EntityController : NetworkBehaviour {
-
+        
         public int maxEnergy;
         [SyncVar]
         public int energy;

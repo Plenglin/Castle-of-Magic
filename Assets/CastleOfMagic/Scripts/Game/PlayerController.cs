@@ -46,9 +46,9 @@ namespace CastleMagic.Game
             }
         }
 
-        /*[Command]
-        public void CmdMovePlayer(EntityController target, HexCoord dest) {
-
-        }*/
+        [Command]
+        public void CmdMoveEntity(int target, HexCoord dest) {
+            
+        }
     }
 }
