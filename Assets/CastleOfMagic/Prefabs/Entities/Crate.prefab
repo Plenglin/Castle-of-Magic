@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a45742c0783884b9e8f9fe6aa34b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: Crate
   maxEnergy: 0
   energy: 0
   maxHealth: 0

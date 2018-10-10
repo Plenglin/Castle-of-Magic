@@ -256,6 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f946cac59f594159858f279c1d36346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: Player
   maxEnergy: 0
   energy: 0
   maxHealth: 0

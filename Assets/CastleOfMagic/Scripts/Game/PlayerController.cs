@@ -18,14 +18,19 @@ namespace CastleMagic.Game
         private BoardManager boardManager;
 
         public void Awake() {
+            slaves = new List<EntityController>();
         }
 
         private void Start() {
-            if (!isLocalPlayer) return;
-
             var board = GameObject.FindWithTag("Board");
             plane = board.GetComponent<HexPlane>();
             boardManager = board.GetComponent<BoardManager>();
+            var prefab = Resources.Load<GameObject>("CastleOfMagic/Prefabs/Entities/Player.prefab");
+            player = Instantiate(prefab).GetComponent<EntityController>();
+            slaves.Add(player);
+            boardManager.InitializeEntity(player, HexCoord.CreateXY(0, 0));
+
+            if (!isLocalPlayer) return;
         }
 
         private void Update() {
