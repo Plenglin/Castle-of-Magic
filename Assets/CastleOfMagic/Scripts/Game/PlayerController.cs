@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CastleMagic.Game.Entites;
 using CastleMagic.Util.Hex;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -25,7 +26,7 @@ namespace CastleMagic.Game
             var board = GameObject.FindWithTag("Board");
             plane = board.GetComponent<HexPlane>();
             boardManager = board.GetComponent<BoardManager>();
-            var prefab = Resources.Load<GameObject>("CastleOfMagic/Prefabs/Entities/Player.prefab");
+            var prefab = Resources.Load("Prefabs/Entities/EntityPlayer") as GameObject;
             player = Instantiate(prefab).GetComponent<EntityController>();
             slaves.Add(player);
             boardManager.InitializeEntity(player, HexCoord.CreateXY(0, 0));
