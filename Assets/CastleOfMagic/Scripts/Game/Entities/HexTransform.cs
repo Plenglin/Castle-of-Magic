@@ -25,7 +25,9 @@ namespace CastleMagic.Game.Entites {
                 if (plane != null) {
                     transform.position = plane.HexToWorldPosition(position);
                 }
-                OnPositionChanged.Invoke(new PositionDelta(old, position));
+                try {
+                    OnPositionChanged.Invoke(new PositionDelta(old, position));
+                } catch(NullReferenceException) {}
             }
         }
         private HexPlane plane;
