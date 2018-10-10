@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 using CastleMagic.Util.Hex;
+using UnityEngine.Events;
 
 namespace CastleMagic.Game.Entites {
 
@@ -12,6 +13,8 @@ namespace CastleMagic.Game.Entites {
     /// </summary>
     [RequireComponent(typeof(HexTransform))]
     public class EntityController : NetworkBehaviour {
+
+        public UnityAction<HexCoord, HexCoord> OnMoved;
 
         public string displayName;
 
@@ -37,7 +40,14 @@ namespace CastleMagic.Game.Entites {
         private void Start() {
             HexTransform = GetComponent<HexTransform>();
             BoardManager = GameObject.FindWithTag("Board").GetComponent<BoardManager>();
-            BoardManager.InitializeEntity(this, HexTransform.Position);
+
+            OnMoved += (from, to) => {
+                HexTransform.Position = to;
+            };
+        }
+
+        public override string ToString() {
+            return $"EntityController({displayName})";
         }
 
     }

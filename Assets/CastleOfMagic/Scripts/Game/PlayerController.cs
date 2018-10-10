@@ -28,8 +28,9 @@ namespace CastleMagic.Game
             boardManager = board.GetComponent<BoardManager>();
             var prefab = Resources.Load("Prefabs/Entities/EntityPlayer") as GameObject;
             player = Instantiate(prefab).GetComponent<EntityController>();
+
+            boardManager.InitializeEntity(player, HexCoord.CreateXY(0, 4));
             slaves.Add(player);
-            boardManager.InitializeEntity(player, HexCoord.CreateXY(0, 0));
 
             if (!isLocalPlayer) return;
         }

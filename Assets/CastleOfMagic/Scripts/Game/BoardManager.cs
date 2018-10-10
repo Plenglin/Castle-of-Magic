@@ -24,6 +24,7 @@ namespace CastleMagic.Game {
             entitiesByPosition.Remove(from);
             entitiesByPosition[to] = entity;
             entity.HexTransform.Position = to;
+            entity.OnMoved.Invoke(from, to);
             return true;
         }
 
@@ -32,6 +33,7 @@ namespace CastleMagic.Game {
         }
 
         public void InitializeEntity(EntityController entity, HexCoord pos) {
+            Debug.Log("intiializing " + entity + " at " + pos);
             if (entitiesByPosition.ContainsKey(pos)) {
                 throw new ArgumentException($"Can't initialize entity in already occupied position ${pos}!");
             }
@@ -39,6 +41,7 @@ namespace CastleMagic.Game {
             entitiesByPosition[pos] = entity;
             entity.HexTransform.Position = pos;
             OnEntityCreated.Invoke(entity);
+            entity.OnMoved.Invoke(entity.HexTransform.Position, pos);
         }
 
         public EntityController GetEntityAtPosition(HexCoord? pos) {
