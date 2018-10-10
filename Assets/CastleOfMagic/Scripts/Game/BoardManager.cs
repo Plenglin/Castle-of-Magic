@@ -18,7 +18,7 @@ namespace CastleMagic.Game {
 
         public bool MoveEntity(HexCoord from, HexCoord to) {
             EntityController entity = entitiesByPosition[from];
-            if (entity == null || entitiesByPosition[to] != null) {
+            if (entity == null || entitiesByPosition.ContainsKey(to)) {
                 return false;
             }
             entitiesByPosition.Remove(from);
@@ -62,12 +62,12 @@ namespace CastleMagic.Game {
         }
 
         public void MoveEntity(int target, HexCoord dest) {
-            var selected = GetEntityWithId(target);
-            if (selected == null) {
+            var entity = GetEntityWithId(target);
+            if (entity == null) {
                 Debug.LogError($"There are no entities with id {target}!");
                 return;
             }
-            MoveEntity(target, dest);
+            MoveEntity(entity, dest);
         }
     }
 
