@@ -41,6 +41,19 @@ namespace CastleMagic.Game {
             OnEntityCreated.Invoke(entity);
         }
 
+        public EntityController GetEntityAtPosition(HexCoord? pos) {
+            if (pos == null) {
+                return null;
+            }
+            EntityController entity;
+            return entitiesByPosition.TryGetValue((HexCoord)pos, out entity) ? entity : null;
+        }
+
+        public EntityController GetEntityWithId(int id) {
+            EntityController entity;
+            return entitiesById.TryGetValue(id, out entity) ? entity : null;
+        }
+
         public void RemoveEntity(int id) {
             EntityController entity = entitiesById[id];
             entitiesById.Remove(id);
@@ -48,6 +61,14 @@ namespace CastleMagic.Game {
             OnEntityDestroyed.Invoke(entity);
         }
 
+        public void MoveEntity(int target, HexCoord dest) {
+            var selected = GetEntityWithId(target);
+            if (selected == null) {
+                Debug.LogError($"There are no entities with id {target}!");
+                return;
+            }
+            MoveEntity(target, dest);
+        }
     }
 
 }

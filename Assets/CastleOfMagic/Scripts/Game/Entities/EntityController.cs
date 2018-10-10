@@ -35,6 +35,7 @@ namespace CastleMagic.Game.Entites {
         private void Start() {
             HexTransform = GetComponent<HexTransform>();
             BoardManager = GameObject.FindWithTag("Board").GetComponent<BoardManager>();
+            BoardManager.InitializeEntity(this, HexTransform.Position);
         }
 
     }

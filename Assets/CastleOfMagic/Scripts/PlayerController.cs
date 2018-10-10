@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerController : NetworkBehaviour
-{
+public class PlayerController : NetworkBehaviour {
 
 	public override void OnStartLocalPlayer() {
 		Debug.Log("i am local");
 		transform.Find("Capsule").GetComponent<Renderer>().material.color = Color.blue;
 	}
 
-	void Update()
-	{
+	void Update() {
 		if (!isLocalPlayer) {
 			return;
 		}

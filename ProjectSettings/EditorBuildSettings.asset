@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/CastleOfMagic/Scenes/Lobby.unity
     guid: df1c2050bc7e8425789b529a79e80f4b
   - enabled: 1
-    path: Assets/CastleOfMagic/Scenes/Game.unity
+    path: Assets/CastleOfMagic/Scenes/LevelCastleWall.unity
     guid: bc695723c880c406e97efe0175a3afc1
   m_configObjects: {}

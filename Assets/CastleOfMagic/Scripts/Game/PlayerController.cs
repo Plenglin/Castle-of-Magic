@@ -15,6 +15,7 @@ namespace CastleMagic.Game
         public EntityController selected = null;
 
         private HexPlane plane;
+        private BoardManager boardManager;
 
         public void Awake() {
         }
@@ -22,33 +23,57 @@ namespace CastleMagic.Game
         private void Start() {
             if (!isLocalPlayer) return;
 
-            plane = GameObject.FindWithTag("Board").GetComponent<HexPlane>();
+            var board = GameObject.FindWithTag("Board");
+            plane = board.GetComponent<HexPlane>();
+            boardManager = board.GetComponent<BoardManager>();
         }
 
         private void Update() {
             if (!isLocalPlayer) return;
         
             if (Input.GetMouseButtonDown(0)) {
-                RaycastHit hit;
-                HexCoord? coordHit;
 
-                int mask = LayerMask.GetMask("Entity");
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray, out hit, float.PositiveInfinity, mask)) {
-                    selected = hit.collider.GetComponentInParent<EntityController>();
-                    Debug.Log("clicked on " + selected);
-                } else if (plane.RaycastToHex(ray, out coordHit)) {
-                    Debug.Log("clicked on " + coordHit);
+                if (selected == null) {
+                    selected = HandleBoardSelection(ray);
+                    Debug.Log("clicked on entity " + selected);
                 } else {
-                    selected = null;
+                    var dest = HandleHexSelection(ray);
+                    if (dest != null) {
+                        CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
+                        selected = null;
+                    }
                 }
+            }
+        }
+
+        private HexCoord? HandleHexSelection(Ray ray) {
+            HexCoord? coordHit;
+            if (plane.RaycastToHex(ray, out coordHit)) {
+                Debug.Log("clicked on hex " + coordHit);
+            } else {
+                coordHit = null;
+            }
+            return coordHit;
+        }
+
+        private EntityController HandleBoardSelection(Ray ray) {
+            RaycastHit hit;
+
+            int mask = LayerMask.GetMask("Entity");
+
+            if (Physics.Raycast(ray, out hit, float.PositiveInfinity, mask)) {
+                return hit.collider.GetComponentInParent<EntityController>();
+            } else {
+                var pos = HandleHexSelection(ray);
+                return boardManager.GetEntityAtPosition(pos);
             }
         }
 
         [Command]
         public void CmdMoveEntity(int target, HexCoord dest) {
-            
+            Debug.Log("We are in the beam: " + target + " to " + dest);
+            boardManager.MoveEntity(target, dest);
         }
     }
 }
