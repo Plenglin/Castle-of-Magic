@@ -14,7 +14,7 @@ namespace CastleMagic.Game.Entites {
 
         public UnityAction<PositionDelta> OnPositionChanged;
 
-        private HexCoord position;
+        private HexCoord position = HexCoord.ZERO;
         public HexCoord Position {
             get {
                 return position;

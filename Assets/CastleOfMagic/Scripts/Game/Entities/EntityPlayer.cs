@@ -1,6 +1,10 @@
 ﻿using System;
+using UnityEngine;
+using UnityEngine.Networking;
+
 namespace CastleMagic.Game.Entites {
-    public class EntityPlayer : EntityController {
+    [RequireComponent(typeof(EntityController))]
+    public class EntityPlayer : NetworkBehaviour {
         
     }
 }

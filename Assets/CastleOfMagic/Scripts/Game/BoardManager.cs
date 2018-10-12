@@ -40,8 +40,12 @@ namespace CastleMagic.Game {
             entitiesById[entity.GetInstanceID()] = entity;
             entitiesByPosition[pos] = entity;
             entity.HexTransform.Position = pos;
-            OnEntityCreated.Invoke(entity);
-            entity.OnMoved.Invoke(entity.HexTransform.Position, pos);
+            if (OnEntityCreated != null) {
+                OnEntityCreated.Invoke(entity);
+            }
+            if (entity.OnMoved != null) {
+                entity.OnMoved.Invoke(entity.HexTransform.Position, pos);
+            }
         }
 
         public EntityController GetEntityAtPosition(HexCoord? pos) {

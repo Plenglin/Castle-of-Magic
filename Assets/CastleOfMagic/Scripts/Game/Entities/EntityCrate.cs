@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using CastleMagic.Util.Hex;
+using UnityEngine.Networking;
 
 namespace CastleMagic.Game.Entites {
 
-    public class EntityCrate : EntityController {
+    [RequireComponent(typeof(EntityController))]
+    public class EntityCrate : NetworkBehaviour {
 
         // Use this for initialization
         void Start() {

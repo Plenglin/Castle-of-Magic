@@ -37,10 +37,12 @@ namespace CastleMagic.Game.Entites {
             private set;
         }
 
-        private void Start() {
+        private void Awake() {
             HexTransform = GetComponent<HexTransform>();
             BoardManager = GameObject.FindWithTag("Board").GetComponent<BoardManager>();
+        }
 
+        private void Start() {
             OnMoved += (from, to) => {
                 HexTransform.Position = to;
             };
