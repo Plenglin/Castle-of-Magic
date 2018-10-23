@@ -19,6 +19,9 @@ namespace CastleMagic.Game
         private HexPlane plane;
         private BoardManager boardManager;
 
+        [SyncVar]
+        public bool requestedTurnEnd;
+
         public void Awake() {
             slaves = new List<EntityController>();
         }
