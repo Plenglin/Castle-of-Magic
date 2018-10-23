@@ -22,18 +22,22 @@ namespace CastleMagic.Game.Entites {
             set {
                 HexCoord old = position;
                 position = value;
-                if (plane != null) {
-                    transform.position = plane.HexToWorldPosition(position);
-                }
+                UpdatePhysicalPosition();
                 try {
                     OnPositionChanged.Invoke(new PositionDelta(old, position));
-                } catch(NullReferenceException) {}
+                } catch (NullReferenceException) { }
             }
         }
         private HexPlane plane;
 
         private void Start() {
             plane = GameObject.FindWithTag("Board").GetComponent<HexPlane>();
+        }
+
+        public void UpdatePhysicalPosition() {
+            if (plane != null) {
+                transform.position = plane.HexToWorldPosition(position);
+            }
         }
 
     }

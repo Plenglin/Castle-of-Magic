@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CastleMagic.Game.Entites;
+using CastleMagic.UI;
 using CastleMagic.Util.Hex;
 using UnityEditor;
 using UnityEngine;
@@ -40,7 +41,6 @@ namespace CastleMagic.Game
             if (!isLocalPlayer) return;
         
             if (Input.GetMouseButtonDown(0)) {
-
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (selected == null) {
                     selected = HandleBoardSelection(ray);
@@ -51,6 +51,10 @@ namespace CastleMagic.Game
                         CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
                         selected = null;
                     }
+                }
+
+                if (selected != null) {
+                    GameObject.FindWithTag("SelectionManager").GetComponent<EntitySelectionManager>().SelectEntity(selected);
                 }
             }
         }
@@ -80,7 +84,6 @@ namespace CastleMagic.Game
 
         [Command]
         public void CmdMoveEntity(int target, HexCoord dest) {
-            Debug.Log("We are in the beam: " + target + " to " + dest);
             boardManager.MoveEntity(target, dest);
         }
     }

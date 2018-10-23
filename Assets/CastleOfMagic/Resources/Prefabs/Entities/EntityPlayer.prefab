@@ -20,8 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4924237768145524}
   - component: {fileID: 114509455363126624}
-  - component: {fileID: 114644251681078286}
   - component: {fileID: 114317857927119180}
+  - component: {fileID: 114007689555967320}
+  - component: {fileID: 114972879311162542}
   m_Layer: 8
   m_Name: EntityPlayer
   m_TagString: Untagged
@@ -202,6 +203,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114007689555967320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1153507291330390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6868bcd8f255e43669cac5554d28a1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: Player
+  maxEnergy: 146
+  energy: 3
+  maxHealth: 0
+  health: 0
+  invunerable: 0
 --- !u!114 &114317857927119180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -245,7 +263,7 @@ MonoBehaviour:
     i15: 10
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114644251681078286
+--- !u!114 &114972879311162542
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,15 +271,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1153507291330390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f946cac59f594159858f279c1d36346, type: 3}
+  m_Script: {fileID: 11500000, guid: 0530a6dc6959ce0408953904f59c6ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Player
-  maxEnergy: 0
-  energy: 0
-  maxHealth: 0
-  health: 0
-  invunerable: 0
 --- !u!136 &136683705720132434
 CapsuleCollider:
   m_ObjectHideFlags: 1

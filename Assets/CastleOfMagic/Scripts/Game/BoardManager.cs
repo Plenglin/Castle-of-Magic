@@ -9,12 +9,16 @@ using UnityEngine.Networking;
 namespace CastleMagic.Game {
 
     public class BoardManager : MonoBehaviour {
-        private HexBoard board;
+        public HexBoard board;
         private Dictionary<HexCoord, EntityController> entitiesByPosition = new Dictionary<HexCoord, EntityController>();
         private Dictionary<int, EntityController> entitiesById = new Dictionary<int, EntityController>();
 
         public UnityAction<EntityController> OnEntityCreated;
         public UnityAction<EntityController> OnEntityDestroyed;
+
+        private void Start() {
+            board = new HexBoard(100, 100);
+        }
 
         public bool MoveEntity(HexCoord from, HexCoord to) {
             EntityController entity = entitiesByPosition[from];

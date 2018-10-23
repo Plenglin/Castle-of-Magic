@@ -18,10 +18,18 @@ namespace CastleMagic.Game.Entites {
                     RpcSetPosition(delta.end);
                 }
             };
+            if (isServer) {
+                Debug.Log("repeating sps");
+                InvokeRepeating("SetPositionRepeating", 0.0f, 2.0f);
+            }
+        }
+
+        private void SetPositionRepeating() {
+            RpcSetPosition(trs.Position);
         }
 
         [ClientRpc]
-        public void RpcSetPosition(HexCoord pos) {
+        private void RpcSetPosition(HexCoord pos) {
             trs.Position = pos;
         }
 

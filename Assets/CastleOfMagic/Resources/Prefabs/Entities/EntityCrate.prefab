@@ -39,8 +39,8 @@ GameObject:
   - component: {fileID: 4078336014020530}
   - component: {fileID: 114407245066631094}
   - component: {fileID: 114630122745522506}
-  - component: {fileID: 114945210360698776}
   - component: {fileID: 114747561968327162}
+  - component: {fileID: 114500639870951392}
   m_Layer: 0
   m_Name: EntityCrate
   m_TagString: Untagged
@@ -140,6 +140,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855e20cd3f3f744be8e08e310b48209f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114500639870951392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1076887083966930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6868bcd8f255e43669cac5554d28a1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: Crate
+  maxEnergy: 0
+  energy: 0
+  maxHealth: 0
+  health: 0
+  invunerable: 0
 --- !u!114 &114630122745522506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -183,20 +200,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0530a6dc6959ce0408953904f59c6ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114945210360698776
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1076887083966930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4a45742c0783884b9e8f9fe6aa34b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayName: Crate
-  maxEnergy: 0
-  energy: 0
-  maxHealth: 0
-  health: 0
-  invunerable: 0
