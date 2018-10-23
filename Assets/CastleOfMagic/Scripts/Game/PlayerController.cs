@@ -35,51 +35,8 @@ namespace CastleMagic.Game
             slaves.Add(player);
 
             if (!isLocalPlayer) return;
-        }
 
-        private void Update() {
-            if (!isLocalPlayer) return;
-        
-            if (Input.GetMouseButtonDown(0)) {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (selected == null) {
-                    selected = HandleBoardSelection(ray);
-                    Debug.Log("clicked on entity " + selected);
-                } else {
-                    var dest = HandleHexSelection(ray);
-                    if (dest != null) {
-                        CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
-                        selected = null;
-                    }
-                }
-
-                if (selected != null) {
-                    GameObject.FindWithTag("SelectionManager").GetComponent<EntitySelectionManager>().SelectEntity(selected);
-                }
-            }
-        }
-
-        private HexCoord? HandleHexSelection(Ray ray) {
-            HexCoord? coordHit;
-            if (plane.RaycastToHex(ray, out coordHit)) {
-                Debug.Log("clicked on hex " + coordHit);
-            } else {
-                coordHit = null;
-            }
-            return coordHit;
-        }
-
-        private EntityController HandleBoardSelection(Ray ray) {
-            RaycastHit hit;
-
-            int mask = LayerMask.GetMask("Entity");
-
-            if (Physics.Raycast(ray, out hit, float.PositiveInfinity, mask)) {
-                return hit.collider.GetComponentInParent<EntityController>();
-            } else {
-                var pos = HandleHexSelection(ray);
-                return boardManager.GetEntityAtPosition(pos);
-            }
+            GameObject.FindWithTag("SelectionManager").GetComponent<EntitySelectionManager>().player = this;
         }
 
         [Command]
