@@ -39,7 +39,7 @@ namespace CastleMagic.Util.Hex {
         public bool IsValidCoordinate() {
             return x + y + z == 0;
         }
-
+       
         public static HexCoord operator +(HexCoord a, HexCoord b) {
             return new HexCoord(a.x + b.x, a.y + b.y, a.z + b.z);
         }
@@ -109,6 +109,12 @@ namespace CastleMagic.Util.Hex {
                 rz = -rx - ry;
             }
             return new HexCoord(rx, ry, rz);
+        }
+
+        public override bool Equals(object other) {
+            if (!(other is HexCoord)) return false;
+            var o = (HexCoord)other;
+            return o.x == x && o.y == y && o.z == z;
         }
 
     }

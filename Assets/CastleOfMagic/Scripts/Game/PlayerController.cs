@@ -44,7 +44,8 @@ namespace CastleMagic.Game
 
         [Command]
         public void CmdMoveEntity(int target, HexCoord dest) {
-            boardManager.MoveEntity(target, dest);
+            var e = boardManager.GetEntityWithId(target);
+            boardManager.MoveEntity(e, dest, true);            
         }
     }
 }

@@ -20,20 +20,33 @@ namespace CastleMagic.Game {
             board = new HexBoard(100, 100);
         }
 
-        public bool MoveEntity(HexCoord from, HexCoord to) {
+        public bool MoveEntity(HexCoord from, HexCoord to, bool consumeEnergy = false) {
             EntityController entity = entitiesByPosition[from];
             if (entity == null || entitiesByPosition.ContainsKey(to)) {
                 return false;
             }
-            entitiesByPosition.Remove(from);
-            entitiesByPosition[to] = entity;
-            entity.HexTransform.Position = to;
-            entity.OnMoved.Invoke(from, to);
+            var shouldMove = false;
+            foreach (var pair in board.PerformBFS(from, entity.energy)) {
+                if (pair.Item1.Equals(to)) {
+                    if (pair.Item2 < 0) {
+                        return false;
+                    }
+                    entity.energy = pair.Item2;
+                    shouldMove = true;
+                    break;
+                }
+            }
+            if (shouldMove) {
+                entitiesByPosition.Remove(from);
+                entitiesByPosition[to] = entity;
+                entity.HexTransform.Position = to;
+                entity.OnMoved.Invoke(from, to);
+            }
             return true;
         }
 
-        public bool MoveEntity(EntityController entity, HexCoord to) {
-            return MoveEntity(entity.HexTransform.Position, to);
+        public bool MoveEntity(EntityController entity, HexCoord to, bool consumeEnergy = false) {
+            return MoveEntity(entity.HexTransform.Position, to, consumeEnergy);
         }
 
         public void InitializeEntity(EntityController entity, HexCoord pos) {
@@ -72,13 +85,13 @@ namespace CastleMagic.Game {
             OnEntityDestroyed.Invoke(entity);
         }
 
-        public void MoveEntity(int target, HexCoord dest) {
+        public void MoveEntity(int target, HexCoord dest, bool consumeEnergy = false) {
             var entity = GetEntityWithId(target);
             if (entity == null) {
                 Debug.LogError($"There are no entities with id {target}!");
                 return;
             }
-            MoveEntity(entity, dest);
+            MoveEntity(entity, dest, consumeEnergy);
         }
     }
 
