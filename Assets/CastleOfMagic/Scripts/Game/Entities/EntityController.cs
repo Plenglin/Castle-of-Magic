@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using CastleMagic.Util.Hex;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 namespace CastleMagic.Game.Entites {
 
@@ -50,6 +51,14 @@ namespace CastleMagic.Game.Entites {
 
         public override string ToString() {
             return $"EntityController({displayName})";
+        }
+
+        public HashSet<HexCoord> GetAccessibleTiles() {
+            var set = new HashSet<HexCoord>();
+            foreach (var pair in BoardManager.board.PerformBFS(HexTransform.Position, energy)) {
+                set.Add(pair.Item1);
+            }
+            return set;
         }
 
     }

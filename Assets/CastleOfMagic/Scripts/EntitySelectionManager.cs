@@ -12,7 +12,7 @@ namespace CastleMagic.UI {
         public PlayerController player;
         public List<EntityController> slaves;
 
-        public EntityController selected = null;
+        private EntityController selected = null;
 
         private HexPlane plane;
         private BoardManager boardManager;
@@ -37,12 +37,12 @@ namespace CastleMagic.UI {
                     var dest = HandleHexSelection(ray);
                     if (dest != null) {
                         player.CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
-                        selected = null;
+                        ClearSelection();
                     }
                 }
 
                 if (selected != null) {
-                    GameObject.FindWithTag("SelectionManager").GetComponent<EntitySelectionManager>().SelectEntity(selected);
+                    SelectEntity(selected);
                 }
             }
         }
@@ -83,6 +83,12 @@ namespace CastleMagic.UI {
                 obj.GetComponent<HighlighterController>().destination = pair.Item1;
                 highlighters.Add(obj);
             }
+        }
+
+        public void ClearSelection() {
+            selected = null;
+            highlighters.ForEach(Destroy);
+            highlighters.Clear();
         }
 
     }
