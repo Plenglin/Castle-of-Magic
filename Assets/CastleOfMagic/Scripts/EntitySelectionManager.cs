@@ -1,5 +1,6 @@
 ﻿using CastleMagic.Game;
 using CastleMagic.Game.Entites;
+using CastleMagic.UI.GameUI;
 using CastleMagic.Util.Hex;
 using System;
 using System.Collections;

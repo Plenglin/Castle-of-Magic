@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CastleMagic.UI {
+namespace CastleMagic.UI.GameUI {
 
     [RequireComponent(typeof(HexTransform))]
     public class HighlighterController : MonoBehaviour {

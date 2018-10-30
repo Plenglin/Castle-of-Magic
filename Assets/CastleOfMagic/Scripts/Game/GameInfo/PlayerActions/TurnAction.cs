@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.Networking;
 
-namespace CastleMagic.Game.GameInfo.PlayerAcrtions {
+namespace CastleMagic.Game.GameInfo.PlayerActions {
     public abstract class TurnAction : NetworkBehaviour {
 
 

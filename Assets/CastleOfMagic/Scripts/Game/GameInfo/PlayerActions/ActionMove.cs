@@ -1,7 +1,7 @@
 ﻿using System;
 using CastleMagic.Util.Hex;
 
-namespace CastleMagic.Game.GameInfo.PlayerAcrtions
+namespace CastleMagic.Game.GameInfo.PlayerActions
 {
     public class ActionMove : TurnAction
     {
@@ -15,8 +15,7 @@ namespace CastleMagic.Game.GameInfo.PlayerAcrtions
             this.player = player;
         }
 
-        public override void ExecuteAction()
-        {
+        public override void ExecuteAction() {
             player.CmdMoveEntity(player.player.GetInstanceID(), to);
         }
     }
