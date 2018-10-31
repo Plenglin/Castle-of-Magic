@@ -47,5 +47,10 @@ namespace CastleMagic.Game
             var e = boardManager.GetEntityWithId(target);
             boardManager.MoveEntity(e, dest, true);            
         }
+
+        [Command]
+        public void CmdRequestEndTurn() {
+            
+        }
     }
 }

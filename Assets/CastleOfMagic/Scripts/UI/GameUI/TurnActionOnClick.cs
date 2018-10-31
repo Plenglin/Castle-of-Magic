@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace CastleMagic.UI.GameUI {
 
     /// <summary>
-    /// This button adds an action to the queue of actions the player will perform.
+    /// This button adds an action to the queue of actions the player will perform on a turn.
     /// Presumabely.
     /// </summary>
     public class TurnActionOnClick : MonoBehaviour {

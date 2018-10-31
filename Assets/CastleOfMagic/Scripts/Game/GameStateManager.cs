@@ -12,15 +12,18 @@ namespace CastleMagic.Game {
 
         private int turnNumber;
 
-        // Use this for initialization
         void Start() {
             networkManager = GetComponent<NetworkLobbyManager>();
             boardManager = GetComponents<BoardManager>();
         }
 
-        // Update is called once per frame
         void Update() {
 
+        }
+
+        [Command]
+        public void CmdRequestEndTurn() {
+            
         }
     }
 
