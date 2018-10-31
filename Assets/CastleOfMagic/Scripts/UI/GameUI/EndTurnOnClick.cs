@@ -15,7 +15,6 @@ namespace CastleMagic.UI.GameUI {
         void Start() {
             action += DoEndTurn;
             GetComponent<Button>().onClick.AddListener(action);
-            GameObject manager = GameObject.FindWithTag("NetworkGameManager");
         }
 
         public void DoEndTurn() {
