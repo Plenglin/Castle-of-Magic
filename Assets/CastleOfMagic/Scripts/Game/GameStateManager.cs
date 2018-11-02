@@ -9,12 +9,20 @@ namespace CastleMagic.Game {
 
         private NetworkLobbyManager networkManager;
         private BoardManager[] boardManager;
+        //private PlayerController[] players;
+        private HashSet<PlayerController> players;
 
         private int turnNumber;
 
         void Start() {
             networkManager = GetComponent<NetworkLobbyManager>();
             boardManager = GetComponents<BoardManager>();
+
+            GameObject[] objects = GameObject.FindGameObjectsWithTag("Player");
+            players = new HashSet<PlayerController>();
+            foreach (GameObject go in objects) {
+                players.Add(go.GetComponent<PlayerController>());
+            }
         }
 
         void Update() {
