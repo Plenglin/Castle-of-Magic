@@ -18,7 +18,7 @@ namespace CastleMagic.UI.GameUI {
         }
 
         public void DoEndTurn() {
-            
+            Debug.Log("tried to end turn thing");
         }
     }
 }
