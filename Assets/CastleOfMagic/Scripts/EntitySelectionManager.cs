@@ -10,7 +10,7 @@ using UnityEngine;
 namespace CastleMagic.UI {
     public class EntitySelectionManager : MonoBehaviour {
 
-        public PlayerController player;
+        public NetworkPlayerController player;
         public List<EntityController> slaves;
 
         private EntityController selected = null;

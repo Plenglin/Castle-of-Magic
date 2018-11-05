@@ -10,7 +10,8 @@ namespace CastleMagic.Game {
         private NetworkLobbyManager networkManager;
         private BoardManager[] boardManager;
         //private PlayerController[] players;
-        private HashSet<PlayerController> players;
+        private int numPlayers;
+        private HashSet<NetworkPlayerController> players;
 
         private int turnNumber;
 
@@ -19,9 +20,10 @@ namespace CastleMagic.Game {
             boardManager = GetComponents<BoardManager>();
 
             GameObject[] objects = GameObject.FindGameObjectsWithTag("Player");
-            players = new HashSet<PlayerController>();
+            numPlayers = objects.Length;
+            players = new HashSet<NetworkPlayerController>();
             foreach (GameObject go in objects) {
-                players.Add(go.GetComponent<PlayerController>());
+                players.Add(go.GetComponent<NetworkPlayerController>());
             }
         }
 
@@ -29,8 +31,8 @@ namespace CastleMagic.Game {
 
         }
 
-        [Command]
-        public void CmdRequestEndTurn() {
+        [ClientRpc]
+        void RpcEndTurn() {
             
         }
     }

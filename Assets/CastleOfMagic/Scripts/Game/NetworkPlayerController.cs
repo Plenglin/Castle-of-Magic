@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 namespace CastleMagic.Game
 {
-    public class PlayerController : NetworkBehaviour {
+    public class NetworkPlayerController : NetworkBehaviour {
 
         public EntityController player;
         public List<EntityController> slaves;

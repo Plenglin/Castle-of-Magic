@@ -7,9 +7,9 @@ namespace CastleMagic.Game.GameInfo.PlayerActions
     {
         private HexCoord from;
         private HexCoord to;
-        private PlayerController player;
+        private NetworkPlayerController player;
 
-        public ActionMove(PlayerController player, HexCoord from, HexCoord to) {
+        public ActionMove(NetworkPlayerController player, HexCoord from, HexCoord to) {
             this.from = from;
             this.to = to;
             this.player = player;
