@@ -19,6 +19,8 @@ namespace CastleMagic.Game
         private HexPlane plane;
         private BoardManager boardManager;
 
+        private GameStateManager gm = GameObject.FindGameObjectWithTag("NetworkGameManager").GetComponent<GameStateManager>();
+
         [SyncVar]
         public bool requestedTurnEnd;
 
@@ -26,7 +28,7 @@ namespace CastleMagic.Game
             slaves = new List<EntityController>();
         }
 
-        private void Start() {
+        void Start() {
             var board = GameObject.FindWithTag("Board");
             plane = board.GetComponent<HexPlane>();
             boardManager = board.GetComponent<BoardManager>();
@@ -42,6 +44,10 @@ namespace CastleMagic.Game
             GameObject.FindWithTag("SelectionManager").GetComponent<EntitySelectionManager>().player = this;
         }
 
+        void Update() {
+            
+        }
+
         [Command]
         public void CmdMoveEntity(int target, HexCoord dest) {
             var e = boardManager.GetEntityWithId(target);
@@ -50,7 +56,7 @@ namespace CastleMagic.Game
 
         [Command]
         public void CmdRequestEndTurn() {
-            
+            gm.RequestEndTurn(this);
         }
     }
 }

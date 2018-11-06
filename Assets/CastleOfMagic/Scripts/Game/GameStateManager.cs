@@ -13,6 +13,8 @@ namespace CastleMagic.Game {
         private int numPlayers;
         private HashSet<NetworkPlayerController> players;
 
+        private Queue<NetworkPlayerController> requestedEndTurnPlayers;
+
         private int turnNumber;
 
         void Start() {
@@ -25,15 +27,23 @@ namespace CastleMagic.Game {
             foreach (GameObject go in objects) {
                 players.Add(go.GetComponent<NetworkPlayerController>());
             }
+            requestedEndTurnPlayers = new Queue<NetworkPlayerController>();
         }
 
         void Update() {
 
         }
 
+        public void RequestEndTurn(NetworkPlayerController player) {
+            requestedEndTurnPlayers.Enqueue(player);
+        }
+
         [ClientRpc]
         void RpcEndTurn() {
-            
+            turnNumber++;
+            while(requestedEndTurnPlayers.Count > 0) {
+                
+            }
         }
     }
 
