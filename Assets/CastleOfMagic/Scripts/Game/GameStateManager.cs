@@ -31,7 +31,12 @@ namespace CastleMagic.Game {
         }
 
         void Update() {
-
+            // lol just go fast
+            if (isServer) {
+                if (requestedEndTurnPlayers.Count >= numPlayers) {
+                    RpcEndTurn();
+                }
+            }
         }
 
         public void RequestEndTurn(NetworkPlayerController player) {
@@ -42,7 +47,7 @@ namespace CastleMagic.Game {
         void RpcEndTurn() {
             turnNumber++;
             while(requestedEndTurnPlayers.Count > 0) {
-                
+                requestedEndTurnPlayers.Dequeue().OnTurnEnd();
             }
         }
     }

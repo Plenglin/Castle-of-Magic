@@ -8,7 +8,7 @@ TagManager:
   - ColorBoi
   - Board
   - SelectionManager
-  - NetworkGameManager
+  - GameManager
   layers:
   - Default
   - TransparentFX

@@ -18,8 +18,9 @@ namespace CastleMagic.UI.GameUI {
         void Start() {
             action += DoEndTurn;
             GetComponent<Button>().onClick.AddListener(action);
-            GameObject obj = GameObject.FindGameObjectWithTag("NetworkGameManager");
-            gm = obj.GetComponent<GameStateManager>();
+            //GameObject obj = GameObject.FindWithTag("GameManager");
+            gm = FindObjectOfType<GameStateManager>();
+            //gm = obj.GetComponent<GameStateManager>();
 
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             foreach(GameObject p in players) {
@@ -32,7 +33,10 @@ namespace CastleMagic.UI.GameUI {
 
         public void DoEndTurn() {
             Debug.Log("tried to end turn thing");
-            localPlayer.CmdRequestEndTurn();
+            Debug.Log(localPlayer);
+            if (!localPlayer.requestedTurnEnd) {
+                localPlayer.CmdRequestEndTurn();
+            }
         }
     }
 }

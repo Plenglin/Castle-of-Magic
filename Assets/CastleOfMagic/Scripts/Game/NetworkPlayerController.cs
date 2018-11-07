@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CastleMagic.Game.Entites;
+using CastleMagic.Game.GameInfo.PlayerActions;
 using CastleMagic.UI;
 using CastleMagic.Util.Hex;
 using UnityEditor;
@@ -19,19 +20,26 @@ namespace CastleMagic.Game
         private HexPlane plane;
         private BoardManager boardManager;
 
-        private GameStateManager gm = GameObject.FindGameObjectWithTag("NetworkGameManager").GetComponent<GameStateManager>();
+        private GameStateManager gm;
+
+        private Queue<TurnAction> turnActionsQueued;
 
         [SyncVar]
         public bool requestedTurnEnd;
 
         public void Awake() {
             slaves = new List<EntityController>();
+            turnActionsQueued = new Queue<TurnAction>();
+            requestedTurnEnd = false;
         }
 
         void Start() {
             var board = GameObject.FindWithTag("Board");
             plane = board.GetComponent<HexPlane>();
-            boardManager = board.GetComponent<BoardManager>();
+            //boardManager = board.GetComponent<BoardManager>();
+            boardManager = GameObject.FindObjectOfType<BoardManager>();
+            //gm = GameObject.FindWithTag("GameManager").GetComponent<GameStateManager>();
+            gm = FindObjectOfType<GameStateManager>();
             var prefab = Resources.Load("Prefabs/Entities/EntityPlayer") as GameObject;
             player = Instantiate(prefab).GetComponent<EntityController>();
             Debug.Log(player);
@@ -48,6 +56,14 @@ namespace CastleMagic.Game
             
         }
 
+        public void AddTurnAction(TurnAction action) {
+            turnActionsQueued.Enqueue(action);
+        }
+
+        public void OnTurnEnd() {
+            player.energy = player.maxEnergy;
+        }
+
         [Command]
         public void CmdMoveEntity(int target, HexCoord dest) {
             var e = boardManager.GetEntityWithId(target);
@@ -57,6 +73,7 @@ namespace CastleMagic.Game
         [Command]
         public void CmdRequestEndTurn() {
             gm.RequestEndTurn(this);
+            requestedTurnEnd = true;
         }
     }
 }
