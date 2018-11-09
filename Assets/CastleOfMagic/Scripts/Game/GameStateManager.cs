@@ -35,7 +35,6 @@ namespace CastleMagic.Game {
             if (isServer) {
                 if (requestedEndTurnPlayers.Count >= numPlayers) {
                     RpcEndTurn();
-                    requestedEndTurnPlayers.Clear();
                 }
             }
         }
@@ -46,8 +45,10 @@ namespace CastleMagic.Game {
 
         [ClientRpc]
         void RpcEndTurn() {
+            Debug.Log("END TURN RPC RAN, currently has " + requestedEndTurnPlayers.Count);
             turnNumber++;
             while(requestedEndTurnPlayers.Count > 0) {
+                Debug.Log("ENDING TURN OF A PLAYer");
                 requestedEndTurnPlayers.Dequeue().OnTurnEnd();
             }
         }
