@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: Player
-  maxEnergy: 146
+  maxEnergy: 3
   energy: 3
   maxHealth: 0
   health: 0
