@@ -17,10 +17,10 @@ namespace CastleMagic.Game
 
         public EntityController selected = null;
 
-        private HexPlane plane;
-        private BoardManager boardManager;
+        public HexPlane plane;
+        public BoardManager boardManager;
 
-        private GameStateManager gm;
+        public GameStateManager gm;
 
         private Queue<TurnAction> turnActionsQueued;
 
@@ -37,9 +37,9 @@ namespace CastleMagic.Game
             var board = GameObject.FindWithTag("Board");
             plane = board.GetComponent<HexPlane>();
             //boardManager = board.GetComponent<BoardManager>();
-            boardManager = GameObject.FindObjectOfType<BoardManager>();
+            boardManager = FindObjectOfType<BoardManager>();
             //gm = GameObject.FindWithTag("GameManager").GetComponent<GameStateManager>();
-            gm = FindObjectOfType<GameStateManager>();
+            //gm = FindObjectOfType<GameStateManager>();
             var prefab = Resources.Load("Prefabs/Entities/EntityPlayer") as GameObject;
             player = Instantiate(prefab).GetComponent<EntityController>();
             Debug.Log(player);
@@ -72,8 +72,13 @@ namespace CastleMagic.Game
 
         [Command]
         public void CmdRequestEndTurn() {
-            gm.RequestEndTurn(this);
-            requestedTurnEnd = true;
+            if(gm == null) {
+                gm = GameObject.FindWithTag("GameManager").GetComponent<GameStateManager>();
+            }
+            if (!requestedTurnEnd) {
+                gm.RequestEndTurn(this);
+                requestedTurnEnd = true;
+            }
         }
     }
 }

@@ -35,6 +35,7 @@ namespace CastleMagic.Game {
             if (isServer) {
                 if (requestedEndTurnPlayers.Count >= numPlayers) {
                     RpcEndTurn();
+                    requestedEndTurnPlayers.Clear();
                 }
             }
         }
