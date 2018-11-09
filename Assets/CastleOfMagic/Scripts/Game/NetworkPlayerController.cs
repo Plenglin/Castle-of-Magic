@@ -62,6 +62,7 @@ namespace CastleMagic.Game
 
         public void OnTurnEnd() {
             player.energy = player.maxEnergy;
+            requestedTurnEnd = false;
         }
 
         [Command]
@@ -72,7 +73,7 @@ namespace CastleMagic.Game
 
         [Command]
         public void CmdRequestEndTurn() {
-            if(gm == null) {
+            if(gm == null) { // help
                 gm = GameObject.FindWithTag("GameManager").GetComponent<GameStateManager>();
             }
             if (!requestedTurnEnd) {
