@@ -16,7 +16,12 @@ namespace CastleMagic.Game.GameInfo.PlayerActions
         }
 
         public override void ExecuteAction() {
-            player.CmdMoveEntity(player.player.GetInstanceID(), to);
+            //player.CmdMoveEntity(player.player.GetInstanceID(), to);
+            // probably needs to be rpc instead
+        }
+
+        public override string ActionToString() {
+            return $"Move {player} from {from} to {to}";
         }
     }
 }
