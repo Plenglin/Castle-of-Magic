@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace CastleMagic.UI {
     public class EntitySelectionManager : MonoBehaviour {
@@ -29,7 +30,7 @@ namespace CastleMagic.UI {
         }
 
         private void Update() {
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (selected == null) {
                     selected = HandleBoardSelection(ray);
