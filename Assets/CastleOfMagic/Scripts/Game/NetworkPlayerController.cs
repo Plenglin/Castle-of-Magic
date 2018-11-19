@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CastleMagic.Game.Entites;
 using CastleMagic.Game.GameInfo.PlayerActions;
 using CastleMagic.UI;
+using CastleMagic.UI.GameUI;
 using CastleMagic.Util.Hex;
 using UnityEditor;
 using UnityEngine;
@@ -22,14 +23,15 @@ namespace CastleMagic.Game
 
         public GameStateManager gm;
 
-        private Queue<TurnAction> turnActionsQueued;
+        private LinkedList<TurnAction> turnActionsQueued;
+        private QueuedActionsDisplay actionsDisplay;
 
         [SyncVar]
         public bool requestedTurnEnd;
 
         public void Awake() {
             slaves = new List<EntityController>();
-            turnActionsQueued = new Queue<TurnAction>();
+            turnActionsQueued = new LinkedList<TurnAction>();
             requestedTurnEnd = false;
         }
 
@@ -50,6 +52,7 @@ namespace CastleMagic.Game
             if (!isLocalPlayer) return;
 
             GameObject.FindWithTag("SelectionManager").GetComponent<EntitySelectionManager>().player = this;
+            actionsDisplay = FindObjectOfType<QueuedActionsDisplay>();
         }
 
         void Update() {
@@ -57,12 +60,15 @@ namespace CastleMagic.Game
         }
 
         public void AddTurnAction(TurnAction action) {
-            turnActionsQueued.Enqueue(action);
+            turnActionsQueued.AddLast(action);
+            actionsDisplay.AddAction(action);
         }
 
         public void OnTurnEnd() {
             player.energy = player.maxEnergy;
             requestedTurnEnd = false;
+            turnActionsQueued.Clear();
+            actionsDisplay.OnNewTurn();
         }
 
         [Command]
@@ -80,6 +86,10 @@ namespace CastleMagic.Game
                 gm.RequestEndTurn(this);
                 requestedTurnEnd = true;
             }
+        }
+
+        public override string ToString() {
+            return "some player";
         }
     }
 }

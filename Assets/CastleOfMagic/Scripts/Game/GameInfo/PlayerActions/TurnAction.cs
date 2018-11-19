@@ -6,6 +6,8 @@ namespace CastleMagic.Game.GameInfo.PlayerActions {
 
         public abstract void ExecuteAction();
 
-        public abstract String ActionToString();
+        public virtual String ActionToString() {
+            return $"Action {this}";
+        }
     }
 }

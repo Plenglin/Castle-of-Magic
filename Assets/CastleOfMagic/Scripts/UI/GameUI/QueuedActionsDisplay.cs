@@ -8,12 +8,13 @@ using System;
 namespace CastleMagic.UI.GameUI {
     public class QueuedActionsDisplay : MonoBehaviour {
 
-        public List<TurnAction> actions;
+        //public List<TurnAction> actions;
+        public LinkedList<TurnAction> actions;
         public Text text;
 
         // Use this for initialization
         void Start() {
-            actions = new List<TurnAction>();
+            actions = new LinkedList<TurnAction>();
             text = GetComponent<Text>();
         }
 
@@ -23,19 +24,19 @@ namespace CastleMagic.UI.GameUI {
         }
 
         public void AddAction(TurnAction action) {
-            actions.Add(action);
+            actions.AddLast(action);
             OnActionListChange();
         }
 
         public void UndoAction() {
-            actions.RemoveAt(actions.Count - 1);
+            actions.RemoveLast();
             OnActionListChange();
         } 
 
         void OnActionListChange() {
             text.text = "";
             foreach(TurnAction ta in actions) {
-                text.text += ta + Environment.NewLine;
+                text.text += ta.ActionToString() + Environment.NewLine;
             }
         }
 

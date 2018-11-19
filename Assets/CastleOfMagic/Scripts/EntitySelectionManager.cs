@@ -1,5 +1,6 @@
 ﻿using CastleMagic.Game;
 using CastleMagic.Game.Entites;
+using CastleMagic.Game.GameInfo.PlayerActions;
 using CastleMagic.UI.GameUI;
 using CastleMagic.Util.Hex;
 using System;
@@ -38,6 +39,7 @@ namespace CastleMagic.UI {
                     var dest = HandleHexSelection(ray);
                     if (dest != null) {
                         player.CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
+                        player.AddTurnAction(new ActionMove(player, player.player.HexTransform.Position, (HexCoord) dest));
                         ClearSelection();
                     }
                 }
