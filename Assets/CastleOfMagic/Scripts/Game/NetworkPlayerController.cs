@@ -23,7 +23,7 @@ namespace CastleMagic.Game
 
         public GameStateManager gm;
 
-        private LinkedList<TurnAction> turnActionsQueued;
+        public LinkedList<TurnAction> turnActionsQueued;
         private QueuedActionsDisplay actionsDisplay;
 
         [SyncVar]

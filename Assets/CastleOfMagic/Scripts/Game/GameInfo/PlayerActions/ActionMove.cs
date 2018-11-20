@@ -3,8 +3,7 @@ using CastleMagic.Util.Hex;
 
 namespace CastleMagic.Game.GameInfo.PlayerActions
 {
-    public class ActionMove : TurnAction
-    {
+    public class ActionMove : TurnAction {
         private HexCoord from;
         private HexCoord to;
         private NetworkPlayerController player;
@@ -16,8 +15,7 @@ namespace CastleMagic.Game.GameInfo.PlayerActions
         }
 
         public override void ExecuteAction() {
-            //player.CmdMoveEntity(player.player.GetInstanceID(), to);
-            // probably needs to be rpc instead
+            player.CmdMoveEntity(player.player.GetInstanceID(), to);
         }
 
         public override string ActionToString() {

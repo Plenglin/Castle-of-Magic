@@ -38,7 +38,8 @@ namespace CastleMagic.UI {
                 } else {
                     var dest = HandleHexSelection(ray);
                     if (dest != null) {
-                        player.CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
+                        //player.CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
+                        // needs some sort of "ghost" player to represent movement, idk
                         player.AddTurnAction(new ActionMove(player, player.player.HexTransform.Position, (HexCoord) dest));
                         ClearSelection();
                     }

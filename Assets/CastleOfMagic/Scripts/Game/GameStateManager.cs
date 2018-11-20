@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CastleMagic.Game.GameInfo.PlayerActions;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,6 +15,7 @@ namespace CastleMagic.Game {
         private HashSet<NetworkPlayerController> players;
 
         private Queue<NetworkPlayerController> requestedEndTurnPlayers;
+        private Dictionary<NetworkPlayerController, LinkedList<TurnAction>> playerActionTable;
 
         private int turnNumber;
 
@@ -28,6 +30,7 @@ namespace CastleMagic.Game {
                 players.Add(go.GetComponent<NetworkPlayerController>());
             }
             requestedEndTurnPlayers = new Queue<NetworkPlayerController>();
+            playerActionTable = new Dictionary<NetworkPlayerController, LinkedList<TurnAction>>();
         }
 
         void Update() {
@@ -41,17 +44,22 @@ namespace CastleMagic.Game {
 
         public void RequestEndTurn(NetworkPlayerController player) {
             requestedEndTurnPlayers.Enqueue(player);
+            playerActionTable[player] = player.turnActionsQueued;
         }
 
         [ClientRpc]
         void RpcEndTurn() {
-            Debug.Log("END TURN RPC RAN, currently has " + requestedEndTurnPlayers.Count);
             turnNumber++;
             while(requestedEndTurnPlayers.Count > 0) {
-                Debug.Log("ENDING TURN OF A PLAYer");
-                requestedEndTurnPlayers.Dequeue().OnTurnEnd();
+                NetworkPlayerController player = requestedEndTurnPlayers.Dequeue();
+                Debug.Log($"ENDING TURN OF A PLAYer {player}");
+                LinkedList<TurnAction> actions = playerActionTable[player];
+                while(!(actions.Count == 0)) {
+                    actions.Last.Value.ExecuteAction();
+                    actions.RemoveLast();
+                }
+                player.OnTurnEnd();
             }
         }
     }
-
 }
