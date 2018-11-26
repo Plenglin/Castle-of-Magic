@@ -61,5 +61,8 @@ namespace CastleMagic.Game.Entites {
             return set;
         }
 
+        public void ToggleVisibility() {
+            
+        }
     }
 }

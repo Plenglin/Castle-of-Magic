@@ -14,6 +14,7 @@ namespace CastleMagic.Game
     public class NetworkPlayerController : NetworkBehaviour {
 
         public EntityController player;
+        public EntityController ghostPlayer;
         public List<EntityController> slaves;
 
         public EntityController selected = null;
@@ -43,7 +44,9 @@ namespace CastleMagic.Game
             //gm = GameObject.FindWithTag("GameManager").GetComponent<GameStateManager>();
             //gm = FindObjectOfType<GameStateManager>();
             var prefab = Resources.Load("Prefabs/Entities/EntityPlayer") as GameObject;
+            var ghostPrefab = Resources.Load("Prefabs/Entities/GhostEntityPlayer") as GameObject;
             player = Instantiate(prefab).GetComponent<EntityController>();
+            //ghostPlayer = Instantiate(ghostPrefab).GetComponent<EntityController>();
             Debug.Log(player);
 
             boardManager.InitializeEntity(player, HexCoord.CreateXY(0, 4));
