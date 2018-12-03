@@ -46,8 +46,10 @@ namespace CastleMagic.Game
             var prefab = Resources.Load("Prefabs/Entities/EntityPlayer") as GameObject;
             var ghostPrefab = Resources.Load("Prefabs/Entities/GhostEntityPlayer") as GameObject;
             player = Instantiate(prefab).GetComponent<EntityController>();
-            //ghostPlayer = Instantiate(ghostPrefab).GetComponent<EntityController>();
+            ghostPlayer = Instantiate(ghostPrefab).GetComponent<EntityController>();
+            ghostPlayer.ToggleVisibility(false);
             Debug.Log(player);
+            Debug.Log(ghostPlayer);
 
             boardManager.InitializeEntity(player, HexCoord.CreateXY(0, 4));
             slaves.Add(player);
@@ -63,12 +65,17 @@ namespace CastleMagic.Game
         }
 
         public void AddTurnAction(TurnAction action) {
-            turnActionsQueued.AddLast(action);
-            actionsDisplay.AddAction(action);
+            if (action.ExecuteGhostAction()) {
+                turnActionsQueued.AddLast(action);
+                actionsDisplay.AddAction(action);
+            } else {
+                action.UndoGhostAction();
+            }
         }
 
         public void OnTurnEnd() {
             player.energy = player.maxEnergy;
+            ghostPlayer.energy = player.energy;
             requestedTurnEnd = false;
             turnActionsQueued.Clear();
             actionsDisplay.OnNewTurn();

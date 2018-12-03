@@ -70,7 +70,11 @@ namespace CastleMagic.UI {
                 return hit.collider.GetComponentInParent<EntityController>();
             } else {
                 var pos = HandleHexSelection(ray);
-                return boardManager.GetEntityAtPosition(pos);
+                EntityController entity = boardManager.GetEntityAtPosition(pos);
+                if(entity.unselectable) {
+                    return null;
+                }
+                return entity;
             }
         }
 

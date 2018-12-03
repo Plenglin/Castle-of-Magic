@@ -10,8 +10,8 @@ namespace CastleMagic.Game {
 
     public class BoardManager : MonoBehaviour {
         public HexBoard board;
-        private Dictionary<HexCoord, EntityController> entitiesByPosition = new Dictionary<HexCoord, EntityController>();
-        private Dictionary<int, EntityController> entitiesById = new Dictionary<int, EntityController>();
+        public Dictionary<HexCoord, EntityController> entitiesByPosition = new Dictionary<HexCoord, EntityController>();
+        public Dictionary<int, EntityController> entitiesById = new Dictionary<int, EntityController>();
 
         public UnityAction<EntityController> OnEntityCreated;
         public UnityAction<EntityController> OnEntityDestroyed;
@@ -28,10 +28,9 @@ namespace CastleMagic.Game {
             var shouldMove = false;
             foreach (var pair in board.PerformBFS(from, entity.energy)) {
                 if (pair.Item1.Equals(to)) {
-                    if (pair.Item2 < 0) {
-                        return false;
+                    if (consumeEnergy) {
+                        entity.energy = pair.Item2;
                     }
-                    entity.energy = pair.Item2;
                     shouldMove = true;
                     break;
                 }
@@ -43,6 +42,17 @@ namespace CastleMagic.Game {
                 entity.OnMoved.Invoke(from, to);
             }
             return true;
+        }
+
+        public bool MoveEntity(int target, HexCoord dest, bool consumeEnergy = false)
+        {
+            var entity = GetEntityWithId(target);
+            if (entity == null)
+            {
+                Debug.LogError($"There are no entities with id {target}!");
+                return false;
+            }
+            return MoveEntity(entity, dest, consumeEnergy);
         }
 
         public bool MoveEntity(EntityController entity, HexCoord to, bool consumeEnergy = false) {
@@ -78,20 +88,15 @@ namespace CastleMagic.Game {
             return entitiesById.TryGetValue(id, out entity) ? entity : null;
         }
 
+        public void RemoveEntity(EntityController entity) {
+            RemoveEntity(entity.GetInstanceID());
+        }
+
         public void RemoveEntity(int id) {
             EntityController entity = entitiesById[id];
             entitiesById.Remove(id);
             entitiesByPosition.Remove(entity.HexTransform.Position);
             OnEntityDestroyed.Invoke(entity);
-        }
-
-        public void MoveEntity(int target, HexCoord dest, bool consumeEnergy = false) {
-            var entity = GetEntityWithId(target);
-            if (entity == null) {
-                Debug.LogError($"There are no entities with id {target}!");
-                return;
-            }
-            MoveEntity(entity, dest, consumeEnergy);
         }
     }
 

@@ -27,6 +27,7 @@ namespace CastleMagic.Game.Entites {
         public int health;
         [SyncVar]
         public bool invunerable;
+        public bool unselectable;
 
         public HexTransform HexTransform {
             get;
@@ -61,8 +62,14 @@ namespace CastleMagic.Game.Entites {
             return set;
         }
 
+        public void ToggleVisibility(bool visible) {
+            Renderer r = GetComponentInChildren<Renderer>() as Renderer;
+            r.enabled = visible;
+        }
+
         public void ToggleVisibility() {
-            
+            Renderer r = GetComponentInChildren<Renderer>() as Renderer;
+            r.enabled = !r.enabled;
         }
     }
 }

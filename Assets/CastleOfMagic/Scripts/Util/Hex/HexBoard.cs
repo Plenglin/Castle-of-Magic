@@ -33,7 +33,7 @@ namespace CastleMagic.Util.Hex {
         /// <param name="start">where to start</param>
         /// <param name="startingEnergy">how much energy to start with</param>
         /// <param name="canPassThrough">are you allowed to pass through this tile?</param>
-        /// <returns>dudes that you can land on</returns>
+        /// <returns>tuple of (dudes that you can land on, energy left when you land on it)</returns>
         public IEnumerable<Tuple<HexCoord, int>> PerformBFS(HexCoord start, int startingEnergy, Predicate<HexCoord> canPassThrough) {
             var toVisit = new Queue<Tuple<HexCoord, int>>();
             var visited = new HashSet<HexCoord>();
