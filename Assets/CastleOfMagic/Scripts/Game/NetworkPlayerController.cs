@@ -22,7 +22,9 @@ namespace CastleMagic.Game
         public HexPlane plane;
         public BoardManager boardManager;
 
-        public GameStateManager gm;
+        private Lazy<GameStateManager> lazyGM = new Lazy<GameStateManager>(() => {
+            return GameObject.FindWithTag("GameManager").GetComponent<GameStateManager>();
+        });
 
         public LinkedList<TurnAction> turnActionsQueued;
         private QueuedActionsDisplay actionsDisplay;
@@ -89,11 +91,8 @@ namespace CastleMagic.Game
 
         [Command]
         public void CmdRequestEndTurn() {
-            if(gm == null) { // help
-                gm = GameObject.FindWithTag("GameManager").GetComponent<GameStateManager>();
-            }
             if (!requestedTurnEnd) {
-                gm.RequestEndTurn(this);
+                lazyGM.Value.RequestEndTurn(this);
                 requestedTurnEnd = true;
             }
         }
