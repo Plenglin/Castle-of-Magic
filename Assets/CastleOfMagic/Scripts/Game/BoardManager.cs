@@ -96,7 +96,9 @@ namespace CastleMagic.Game {
             EntityController entity = entitiesById[id];
             entitiesById.Remove(id);
             entitiesByPosition.Remove(entity.HexTransform.Position);
-            OnEntityDestroyed.Invoke(entity);
+            if (OnEntityDestroyed != null) {
+                OnEntityDestroyed.Invoke(entity);
+            }
         }
     }
 

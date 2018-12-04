@@ -50,6 +50,7 @@ namespace CastleMagic.Game
             player = Instantiate(prefab).GetComponent<EntityController>();
             ghostPlayer = Instantiate(ghostPrefab).GetComponent<EntityController>();
             ghostPlayer.ToggleVisibility(false);
+            ghostPlayer.energy = player.energy;
             Debug.Log(player);
             Debug.Log(ghostPlayer);
 

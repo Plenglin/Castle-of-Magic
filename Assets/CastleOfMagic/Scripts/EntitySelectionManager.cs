@@ -40,7 +40,7 @@ namespace CastleMagic.UI {
                     if (dest != null) {
                         //player.CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
                         // needs some sort of "ghost" player to represent movement, idk
-                        player.AddTurnAction(new ActionMove(player, player.player.HexTransform.Position, (HexCoord) dest));
+                        player.AddTurnAction(new TurnActionMove(player, player.player.HexTransform.Position, (HexCoord) dest));
                         ClearSelection();
                     }
                 }
@@ -67,13 +67,14 @@ namespace CastleMagic.UI {
             int mask = LayerMask.GetMask("Entity");
 
             if (Physics.Raycast(ray, out hit, float.PositiveInfinity, mask)) {
-                return hit.collider.GetComponentInParent<EntityController>();
+                var e = hit.collider.GetComponentInParent<EntityController>();
+                if (e.unselectable) {
+                    return null;
+                }
+                return e;
             } else {
                 var pos = HandleHexSelection(ray);
                 EntityController entity = boardManager.GetEntityAtPosition(pos);
-                if(entity.unselectable) {
-                    return null;
-                }
                 return entity;
             }
         }
@@ -85,7 +86,8 @@ namespace CastleMagic.UI {
             });
             highlighters.Clear();
             var prefab = Resources.Load("Prefabs/UI/HexHighlighter") as GameObject;
-            foreach (Tuple<HexCoord, int> pair in boardManager.board.PerformBFS(entity.HexTransform.Position, entity.energy)) {
+            foreach (Tuple<HexCoord, int> pair in boardManager.board.PerformBFS(entity.HexTransform.Position, entity.energy))
+            {
                 Debug.Log("Adding highlighter to " + pair);
                 var obj = Instantiate(prefab);
                 obj.GetComponent<HighlighterController>().destination = pair.Item1;

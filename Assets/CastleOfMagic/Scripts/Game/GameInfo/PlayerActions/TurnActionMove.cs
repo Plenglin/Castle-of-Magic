@@ -1,15 +1,16 @@
 ﻿using System;
 using CastleMagic.Game.Entites;
 using CastleMagic.Util.Hex;
+using UnityEngine;
 
 namespace CastleMagic.Game.GameInfo.PlayerActions
 {
-    public class ActionMove : TurnAction {
+    public class TurnActionMove : TurnAction {
         private HexCoord from;
         private HexCoord to;
         private NetworkPlayerController player;
 
-        public ActionMove(NetworkPlayerController player, HexCoord from, HexCoord to) {
+        public TurnActionMove(NetworkPlayerController player, HexCoord from, HexCoord to) {
             this.from = from;
             this.to = to;
             this.player = player;
@@ -31,11 +32,13 @@ namespace CastleMagic.Game.GameInfo.PlayerActions
             if (shouldMove) {
                 try {
                     player.boardManager.InitializeEntity(player.ghostPlayer, to);
+                    player.ghostPlayer.ToggleVisibility(true);
+                    return true;
                 } catch (ArgumentException) {
                     return false;
                 }
             }
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -47,6 +50,9 @@ namespace CastleMagic.Game.GameInfo.PlayerActions
         }
 
         public override void ExecuteAction() {
+            // there might need to be a catch in removeentity if multiple moves are called
+            player.boardManager.RemoveEntity(player.ghostPlayer);
+            player.ghostPlayer.ToggleVisibility(false);
             player.CmdMoveEntity(player.player.GetInstanceID(), to);
         }
 
