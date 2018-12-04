@@ -68,6 +68,5 @@ namespace CastleMagic.Util.Hex {
 
         private void OnDrawGizmosSelected() {
         }
-
     }
 }

@@ -28,20 +28,16 @@ namespace CastleMagic.Game.Entites {
                 } catch (NullReferenceException) { }
             }
         }
-        private HexPlane plane;
+        private Lazy<HexPlane> lazyPlane = new Lazy<HexPlane>(() =>
+        {
+            return GameObject.FindWithTag("Board").GetComponent<HexPlane>();
+        });
 
         private void Start() {
-            plane = GameObject.FindWithTag("Board").GetComponent<HexPlane>();
         }
 
         public void UpdatePhysicalPosition() {
-            // end my own life
-            if(plane == null) {
-                plane = GameObject.FindWithTag("Board").GetComponent<HexPlane>();
-            }
-            if (plane != null) {
-                transform.position = plane.HexToWorldPosition(position);
-            }
+            transform.position = lazyPlane.Value.HexToWorldPosition(position);
         }
 
     }
