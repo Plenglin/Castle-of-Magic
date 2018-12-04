@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 632958deb6067124bb77d46dcb402d36, type: 3}
+  m_Name: MagicMissile
+  m_EditorClassIdentifier: 
+  displayName: Magic Missile
+  energy: 20
+  maxCharges: 3
+  chargeRegen: 3
+  targetingMethod: {fileID: 11400000, guid: e382c834587060048b95c798321ae2c8, type: 2}

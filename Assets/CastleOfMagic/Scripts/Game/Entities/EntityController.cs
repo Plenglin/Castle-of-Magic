@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using CastleMagic.Util.Hex;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System;
 
 namespace CastleMagic.Game.Entites {
 
@@ -20,6 +21,11 @@ namespace CastleMagic.Game.Entites {
         public string displayName;
 
         public int maxEnergy;
+
+        public void TakeDamage(int damage) {
+            health -= damage;
+        }
+
         [SyncVar]
         public int energy;
         public int maxHealth;
