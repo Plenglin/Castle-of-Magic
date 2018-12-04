@@ -35,6 +35,10 @@ namespace CastleMagic.Game.Entites {
         }
 
         public void UpdatePhysicalPosition() {
+            // end my own life
+            if(plane == null) {
+                plane = GameObject.FindWithTag("Board").GetComponent<HexPlane>();
+            }
             if (plane != null) {
                 transform.position = plane.HexToWorldPosition(position);
             }
