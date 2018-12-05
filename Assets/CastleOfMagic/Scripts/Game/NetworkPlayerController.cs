@@ -102,7 +102,7 @@ namespace CastleMagic.Game
         }
 
         public override string ToString() {
-            return "some player";
+            return "Player " + this;
         }
     }
 }
