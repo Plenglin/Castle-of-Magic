@@ -30,28 +30,24 @@ namespace CastleMagic.Game.GameInfo.PlayerActions
                 }
             }
             if (shouldMove) {
-                try {
-                    player.boardManager.InitializeEntity(player.ghostPlayer, to);
-                    player.ghostPlayer.ToggleVisibility(true);
-                    return true;
-                } catch (ArgumentException) {
+                if (bm.IsPositionOccupied(to)) {
                     return false;
                 }
+                player.ghostPlayer.HexTransform.Position = to;
+                player.ghostPlayer.ToggleVisibility(true);
+                return true;
             }
             return false;
         }
 
-        /// <summary>
-        /// moving entity does the dumb shit again, so just reinitialize entity
-        /// </summary>
         public override void UndoGhostAction() {
-            player.boardManager.RemoveEntity(player.ghostPlayer);
-            player.boardManager.InitializeEntity(player.ghostPlayer, from);
+            player.ghostPlayer.HexTransform.Position = from;
+            if(player.ghostPlayer.HexTransform == player.player.HexTransform) {
+                player.ghostPlayer.ToggleVisibility(false);
+            }
         }
 
         public override void ExecuteAction() {
-            // there might need to be a catch in removeentity if multiple moves are called
-            player.boardManager.RemoveEntity(player.ghostPlayer);
             player.ghostPlayer.ToggleVisibility(false);
             player.CmdMoveEntity(player.player.GetInstanceID(), to);
         }

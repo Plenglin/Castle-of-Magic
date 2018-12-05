@@ -48,11 +48,7 @@ namespace CastleMagic.Game
             var prefab = Resources.Load("Prefabs/Entities/EntityPlayer") as GameObject;
             var ghostPrefab = Resources.Load("Prefabs/Entities/GhostEntityPlayer") as GameObject;
             player = Instantiate(prefab).GetComponent<EntityController>();
-            ghostPlayer = Instantiate(ghostPrefab).GetComponent<EntityController>();
-            ghostPlayer.ToggleVisibility(false);
-            ghostPlayer.energy = player.energy;
             Debug.Log(player);
-            Debug.Log(ghostPlayer);
 
             boardManager.InitializeEntity(player, HexCoord.CreateXY(0, 4));
             slaves.Add(player);
@@ -61,6 +57,12 @@ namespace CastleMagic.Game
 
             GameObject.FindWithTag("SelectionManager").GetComponent<EntitySelectionManager>().player = this;
             actionsDisplay = FindObjectOfType<QueuedActionsDisplay>();
+
+            ghostPlayer = Instantiate(ghostPrefab).GetComponent<EntityController>();
+            ghostPlayer.ToggleVisibility(false);
+            ghostPlayer.energy = player.energy;
+            ghostPlayer.HexTransform.Position = player.HexTransform.Position;
+            Debug.Log(ghostPlayer);
         }
 
         void Update() {

@@ -40,7 +40,7 @@ namespace CastleMagic.UI {
                     if (dest != null) {
                         //player.CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
                         // needs some sort of "ghost" player to represent movement, idk
-                        player.AddTurnAction(new TurnActionMove(player, player.player.HexTransform.Position, (HexCoord) dest));
+                        player.AddTurnAction(new TurnActionMove(player, player.ghostPlayer.HexTransform.Position, (HexCoord) dest));
                         ClearSelection();
                     }
                 }

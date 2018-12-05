@@ -61,7 +61,7 @@ namespace CastleMagic.Game {
 
         public void InitializeEntity(EntityController entity, HexCoord pos) {
             Debug.Log("intiializing " + entity + " at " + pos);
-            if (entitiesByPosition.ContainsKey(pos)) {
+            if (IsPositionOccupied(pos)) {
                 throw new ArgumentException($"Can't initialize entity in already occupied position ${pos}!");
             }
             entitiesById[entity.GetInstanceID()] = entity;
@@ -99,6 +99,10 @@ namespace CastleMagic.Game {
             if (OnEntityDestroyed != null) {
                 OnEntityDestroyed.Invoke(entity);
             }
+        }
+
+        public bool IsPositionOccupied(HexCoord pos) {
+            return entitiesByPosition.ContainsKey(pos);
         }
     }
 

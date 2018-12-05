@@ -40,6 +40,17 @@ namespace CastleMagic.Game.Entites {
             transform.position = lazyPlane.Value.HexToWorldPosition(position);
         }
 
-    }
+        public override bool Equals(object other) {
+            return (other is HexTransform) && ((HexTransform)other).Position.Equals(Position);
+        }
 
+        public static bool operator == (HexTransform pos1, HexTransform pos2) {
+            return pos1.Equals(pos2);
+        }
+
+        public static bool operator !=(HexTransform pos1, HexTransform pos2)
+        {
+            return !(pos1 == pos2);
+        }
+    }
 }
