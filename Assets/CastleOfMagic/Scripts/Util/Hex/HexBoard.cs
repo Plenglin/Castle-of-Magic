@@ -42,19 +42,20 @@ namespace CastleMagic.Util.Hex {
                 var pair = toVisit.Dequeue();
                 var coord = pair.Item1;
                 var energyLeft = pair.Item2;
-                if (energyLeft < 0) {
-                    continue;
-                }
                 if (!visited.Contains(coord) && IsValidPosition(coord) && canPassThrough(coord)) {
                     visited.Add(coord);
                     yield return Tuple.Create(coord, energyLeft);
                     int newEnergy = energyLeft - 1;
-                    foreach (var n in coord.GetNeighbors()) {
-                        toVisit.Enqueue(Tuple.Create(n, newEnergy));
-                    }
-                    HexCoord wormholeEndpoint;
-                    if (wormholes.TryGetValue(coord, out wormholeEndpoint)) {
-                        toVisit.Enqueue(Tuple.Create(wormholeEndpoint, newEnergy));
+                    if (energyLeft != 0) {
+                        foreach (var n in coord.GetNeighbors())
+                        {
+                            toVisit.Enqueue(Tuple.Create(n, newEnergy));
+                        }
+                        HexCoord wormholeEndpoint;
+                        if (wormholes.TryGetValue(coord, out wormholeEndpoint))
+                        {
+                            toVisit.Enqueue(Tuple.Create(wormholeEndpoint, newEnergy));
+                        }
                     }
                 }
             }

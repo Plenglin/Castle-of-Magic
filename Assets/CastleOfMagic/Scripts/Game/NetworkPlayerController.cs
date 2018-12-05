@@ -81,6 +81,7 @@ namespace CastleMagic.Game
         public void OnTurnEnd() {
             player.energy = player.maxEnergy;
             ghostPlayer.energy = player.energy;
+            ghostPlayer.HexTransform.Position = player.HexTransform.Position;
             requestedTurnEnd = false;
             turnActionsQueued.Clear();
             actionsDisplay.OnNewTurn();
