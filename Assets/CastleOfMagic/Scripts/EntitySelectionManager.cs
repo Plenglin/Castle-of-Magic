@@ -17,7 +17,19 @@ namespace CastleMagic.UI {
         public NetworkPlayerController player;
         public List<EntityController> slaves;
 
-        private EntityController selected = null;
+        private EntityController _selected = null;
+        public EntityController selected {
+            get {
+                return _selected;
+            }
+            private set {
+                var old = _selected;
+                _selected = value;
+                if (old != value) {
+                    OnSelectionChange.Invoke();
+                }
+            }
+        }
 
         private HexPlane plane;
         private BoardManager boardManager;
@@ -89,17 +101,12 @@ namespace CastleMagic.UI {
                 obj.GetComponent<HighlighterController>().destination = pair.Item1;
                 highlighters.Add(obj);
             }
-            OnSelectionChange.Invoke();
         }
 
         public void ClearSelection() {
             selected = null;
             highlighters.ForEach(Destroy);
             highlighters.Clear();
-        }
-
-        public EntityController GetSelected() {
-            return selected;
         }
 
     }

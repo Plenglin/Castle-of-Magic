@@ -23,7 +23,7 @@ namespace CastleMagic.UI.GameUI {  // TODO: don't double UI
         // Update is called once per frame
         void OnSelectionChange() {
             Debug.Log("Selection changed. Updating ability list");
-            var selected = selection.Value.GetSelected();
+            var selected = selection.Value.selected;
             var rt = panel.GetComponent<RectTransform>();
 
             foreach (Transform child in panel.transform) {
