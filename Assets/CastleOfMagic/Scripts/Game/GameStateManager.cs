@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CastleMagic.Game.Entites;
 using CastleMagic.Game.GameInfo.PlayerActions;
+using CastleMagic.Util.Hex;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -21,7 +23,7 @@ namespace CastleMagic.Game {
 
         void Start() {
             networkManager = GetComponent<NetworkLobbyManager>();
-            boardManager = GetComponents<BoardManager>();
+            boardManager = FindObjectsOfType<BoardManager>();
 
             GameObject[] objects = GameObject.FindGameObjectsWithTag("Player");
             numPlayers = objects.Length;
@@ -31,6 +33,12 @@ namespace CastleMagic.Game {
             }
             requestedEndTurnPlayers = new Queue<NetworkPlayerController>();
             playerActionTable = new Dictionary<NetworkPlayerController, LinkedList<TurnAction>>();
+
+            //very temprorary
+            var prefab = Resources.Load("Prefabs/Entities/EntityCrate") as GameObject;
+            EntityController crate = Instantiate(prefab).GetComponent<EntityController>();
+
+            boardManager[0].InitializeEntity(crate, HexCoord.CreateXY(4, 4));
         }
 
         void Update() {
