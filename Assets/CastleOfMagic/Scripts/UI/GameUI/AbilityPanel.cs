@@ -34,7 +34,10 @@ namespace CastleMagic.UI.GameUI {  // TODO: don't double UI
                 int i = 0;
                 foreach (var ab in selected.abilities) {
                     GameObject child = Instantiate(buttonPrefab, panel.transform);
-                    child.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, -5 - i * 40f);
+                    var crt = child.GetComponent<RectTransform>();
+                    //crt.offsetMin = new Vector2(rectTransform.offsetMin.x, bottom);
+                    //crt.offsetMax = new Vector2(rectTransform.offsetMax.x, top);
+                    crt.anchoredPosition = new Vector3(0f, -5 - i * 40f);
                     var bt = child.GetComponent<AbilityButton>();
                     bt.SetAbility(ab);
                     bt.parent = this;
