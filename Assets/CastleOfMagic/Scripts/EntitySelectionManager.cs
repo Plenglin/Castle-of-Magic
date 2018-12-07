@@ -6,10 +6,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace CastleMagic.UI {
     public class EntitySelectionManager : MonoBehaviour {
+
+        public UnityAction OnSelectionChange;
 
         public NetworkPlayerController player;
         public List<EntityController> slaves;
@@ -35,6 +38,7 @@ namespace CastleMagic.UI {
                 if (selected == null) {
                     selected = HandleBoardSelection(ray);
                     Debug.Log("clicked on entity " + selected);
+                    OnSelectionChange.Invoke();
                 } else {
                     var dest = HandleHexSelection(ray);
                     if (dest != null) {
@@ -85,12 +89,17 @@ namespace CastleMagic.UI {
                 obj.GetComponent<HighlighterController>().destination = pair.Item1;
                 highlighters.Add(obj);
             }
+            OnSelectionChange.Invoke();
         }
 
         public void ClearSelection() {
             selected = null;
             highlighters.ForEach(Destroy);
             highlighters.Clear();
+        }
+
+        public EntityController GetSelected() {
+            return selected;
         }
 
     }

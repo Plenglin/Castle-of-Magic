@@ -15,4 +15,5 @@ MonoBehaviour:
   energy: 20
   maxCharges: 3
   chargeRegen: 3
-  targetingMethod: {fileID: 11400000, guid: e382c834587060048b95c798321ae2c8, type: 2}
+  targetingMethod: {fileID: 11400000, guid: 172384081abfc7e4fb5f25fe610947ff, type: 2}
+  castBehavior: {fileID: 11400000, guid: 01cbd11566bb58f438d4e3752ed12507, type: 2}

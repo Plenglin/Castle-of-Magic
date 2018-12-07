@@ -81,5 +81,9 @@ namespace CastleMagic.Game
                 requestedTurnEnd = true;
             }
         }
+
+        public bool IsControlling(EntityController entity) {
+            return slaves.Contains(entity);
+        }
     }
 }

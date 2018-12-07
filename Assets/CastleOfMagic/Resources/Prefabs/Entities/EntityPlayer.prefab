@@ -220,6 +220,9 @@ MonoBehaviour:
   maxHealth: 0
   health: 0
   invunerable: 0
+  abilities:
+  - {fileID: 11400000, guid: 0ee5b02924b260c4b84278ff2541705e, type: 2}
+  - {fileID: 11400000, guid: 0ee5b02924b260c4b84278ff2541705e, type: 2}
 --- !u!114 &114317857927119180
 MonoBehaviour:
   m_ObjectHideFlags: 1

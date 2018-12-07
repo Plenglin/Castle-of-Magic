@@ -5,6 +5,7 @@ using CastleMagic.Util.Hex;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using System;
+using CastleMagic.Game.Ability;
 
 namespace CastleMagic.Game.Entites {
 
@@ -34,6 +35,8 @@ namespace CastleMagic.Game.Entites {
         [SyncVar]
         public bool invunerable;
 
+        private bool isPlayerControlled = false;
+
         public HexTransform HexTransform {
             get;
             private set;
@@ -43,6 +46,8 @@ namespace CastleMagic.Game.Entites {
             get;
             private set;
         }
+
+        public List<BaseAbility> abilities = new List<BaseAbility>();
 
         private void Awake() {
             HexTransform = GetComponent<HexTransform>();
