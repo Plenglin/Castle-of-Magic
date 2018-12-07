@@ -24,6 +24,7 @@ namespace CastleMagic.UI.GameUI {  // TODO: don't double UI
         void OnSelectionChange() {
             Debug.Log("Selection changed. Updating ability list");
             var selected = selection.Value.GetSelected();
+            var rt = panel.GetComponent<RectTransform>();
 
             foreach (Transform child in panel.transform) {
                 Destroy(child.gameObject);
@@ -33,7 +34,7 @@ namespace CastleMagic.UI.GameUI {  // TODO: don't double UI
                 int i = 0;
                 foreach (var ab in selected.abilities) {
                     GameObject child = Instantiate(buttonPrefab, panel.transform);
-                    child.transform.localPosition = new Vector3(0f, 5 - i * 40f);
+                    child.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, -5 - i * 40f);
                     var bt = child.GetComponent<AbilityButton>();
                     bt.SetAbility(ab);
                     bt.parent = this;
@@ -43,6 +44,8 @@ namespace CastleMagic.UI.GameUI {  // TODO: don't double UI
             } else {
                 panel.SetActive(false);
             }
+            rt.anchoredPosition = new Vector3(0, 0);
+            rt.sizeDelta = new Vector2(50, 10 + 50f * selected.abilities.Count);
         }
 
         public void OnAbilityClick(AbilityButton button) {
