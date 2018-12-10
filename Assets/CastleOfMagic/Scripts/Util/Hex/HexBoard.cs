@@ -68,10 +68,15 @@ namespace CastleMagic.Util.Hex {
             }
         }
 
+        public bool IsCoordInRange(HexCoord coord) {
+            return coord.IsValidCoordinate() && coord.x >= 0 && coord.x < width && coord.y >= 0 && coord.y < height;
+        }
+
         public bool IsValidPosition(HexCoord coord) {
-            if (!coord.IsValidCoordinate() || coord.x < 0 || coord.x >= width || coord.y < 0 || coord.y >= height) {
-                return false;
-            }
+            return IsCoordInRange(coord) && WallExistsAt(coord);
+        }
+
+        public bool WallExistsAt(HexCoord coord) {
             return openTiles[coord.x][coord.y];
         }
 

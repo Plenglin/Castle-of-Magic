@@ -7,14 +7,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace CastleMagic.UI {
     public class EntitySelectionManager : MonoBehaviour {
 
+        public UnityAction OnSelectionChange;
+
         public NetworkPlayerController player;
         public List<EntityController> slaves;
 
-        private EntityController selected = null;
+        private EntityController _selected = null;
+        public EntityController selected {
+            get {
+                return _selected;
+            }
+            private set {
+                var old = _selected;
+                _selected = value;
+                if (old != value) {
+                    OnSelectionChange.Invoke();
+                }
+            }
+        }
 
         private HexPlane plane;
         private BoardManager boardManager;
@@ -30,11 +46,12 @@ namespace CastleMagic.UI {
         }
 
         private void Update() {
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (selected == null) {
                     selected = HandleBoardSelection(ray);
                     Debug.Log("clicked on entity " + selected);
+                    OnSelectionChange.Invoke();
                 } else {
                     var dest = HandleHexSelection(ray);
                     if (dest != null) {

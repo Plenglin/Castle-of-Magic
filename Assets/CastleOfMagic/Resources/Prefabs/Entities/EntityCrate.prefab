@@ -157,6 +157,7 @@ MonoBehaviour:
   maxHealth: 0
   health: 0
   invunerable: 0
+  abilities: []
 --- !u!114 &114630122745522506
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -56,6 +56,10 @@ namespace CastleMagic.Util.Hex {
             return new HexCoord(b.x * a, b.y * a, b.z * a);
         }
 
+        public HexCoord NormalizedToBasis() {
+            throw new NotImplementedException();
+        }
+
         public int DistanceFrom(HexCoord other) {
             return (Math.Abs(x - other.x) + Math.Abs(y - other.y) + Math.Abs(z - other.z)) / 2;
         }

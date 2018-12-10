@@ -101,6 +101,10 @@ namespace CastleMagic.Game
             }
         }
 
+        public bool IsControlling(EntityController entity) {
+            return slaves.Contains(entity);
+        }
+
         public override string ToString() {
             return "Player " + this.GetHashCode();
         }

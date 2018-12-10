@@ -4,6 +4,8 @@ using UnityEngine.Networking;
 using CastleMagic.Util.Hex;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System;
+using CastleMagic.Game.Ability;
 
 namespace CastleMagic.Game.Entites {
 
@@ -20,6 +22,11 @@ namespace CastleMagic.Game.Entites {
         public string displayName;
 
         public int maxEnergy;
+
+        public void TakeDamage(int damage) {
+            health -= damage;
+        }
+
         [SyncVar]
         public int energy;
         public int maxHealth;
@@ -28,6 +35,8 @@ namespace CastleMagic.Game.Entites {
         [SyncVar]
         public bool invunerable;
         public bool unselectable;
+
+        private bool isPlayerControlled = false;
 
         public HexTransform HexTransform {
             get;
@@ -38,6 +47,8 @@ namespace CastleMagic.Game.Entites {
             get;
             private set;
         }
+
+        public List<BaseAbility> abilities = new List<BaseAbility>();
 
         private void Awake() {
             HexTransform = GetComponent<HexTransform>();
