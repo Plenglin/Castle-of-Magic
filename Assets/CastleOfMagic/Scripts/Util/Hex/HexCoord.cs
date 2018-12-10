@@ -115,9 +115,9 @@ namespace CastleMagic.Util.Hex {
             return new HexCoord(rx, ry, rz);
         }
 
-        public override bool Equals(object other) {
-            if (!(other is HexCoord)) return false;
-            var o = (HexCoord)other;
+        public override bool Equals(object obj) {
+            if (obj == null || !(obj is HexCoord)) return false;
+            var o = (HexCoord)obj;
             return o.x == x && o.y == y && o.z == z;
         }
 

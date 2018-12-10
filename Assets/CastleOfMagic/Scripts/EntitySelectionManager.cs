@@ -54,10 +54,12 @@ namespace CastleMagic.UI {
                     OnSelectionChange.Invoke();
                 } else {
                     var dest = HandleHexSelection(ray);
-                    if (dest != null) {
+                    if (!player.ghostPlayer.HexTransform.Position.Equals(dest)) {
                         //player.CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
                         // needs some sort of "ghost" player to represent movement, idk
                         player.AddTurnAction(new TurnActionMove(player, player.ghostPlayer.HexTransform.Position, (HexCoord) dest));
+                        ClearSelection();
+                    } else {
                         ClearSelection();
                     }
                 }

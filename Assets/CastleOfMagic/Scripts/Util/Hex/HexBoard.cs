@@ -42,7 +42,7 @@ namespace CastleMagic.Util.Hex {
                 var pair = toVisit.Dequeue();
                 var coord = pair.Item1;
                 var energyLeft = pair.Item2;
-                if (!visited.Contains(coord) && IsValidPosition(coord) && canPassThrough(coord)) {
+                if (!visited.Contains(coord) && IsValidPosition(coord) && (!coord.Equals(start) || canPassThrough(coord))) {
                     visited.Add(coord);
                     yield return Tuple.Create(coord, energyLeft);
                     int newEnergy = energyLeft - 1;

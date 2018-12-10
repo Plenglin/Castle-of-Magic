@@ -22,7 +22,7 @@ namespace CastleMagic.Game.GameInfo.PlayerActions
                 return false;
             }
             var shouldMove = false;
-            foreach (var pair in bm.board.PerformBFS(from, player.ghostPlayer.energy)) {
+            foreach (var pair in bm.board.PerformBFS(from, player.ghostPlayer.energy, (x) => bm.IsPositionOccupied(x))) {
                 if (pair.Item1.Equals(to)) {
                     player.ghostPlayer.energy = pair.Item2;
                     shouldMove = true;
