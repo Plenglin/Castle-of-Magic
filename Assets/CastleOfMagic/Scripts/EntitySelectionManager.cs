@@ -105,7 +105,7 @@ namespace CastleMagic.UI {
             var prefab = Resources.Load("Prefabs/UI/HexHighlighter") as GameObject;
             if (entity == player.ghostPlayer || player.slaves.Contains(entity)) {
                 foreach (Tuple<HexCoord, int> pair in boardManager.board.PerformBFS(entity.HexTransform.Position, entity.energy)) {
-                    Debug.Log("Adding highlighter to " + pair);
+                    //Debug.Log("Adding highlighter to " + pair);
                     var obj = Instantiate(prefab);
                     obj.GetComponent<HighlighterController>().destination = pair.Item1;
                     highlighters.Add(obj);
