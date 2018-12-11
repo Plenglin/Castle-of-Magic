@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using CastleMagic.Game.Entites;
+using CastleMagic.Game.Entities;
 
 namespace CastleMagic.Game.Ability {
 

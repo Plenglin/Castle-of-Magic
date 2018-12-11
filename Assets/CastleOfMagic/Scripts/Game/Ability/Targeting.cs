@@ -2,7 +2,7 @@
 using System.Collections;
 using CastleMagic.Util.Hex;
 using System;
-using CastleMagic.Game.Entites;
+using CastleMagic.Game.Entities;
 using System.Collections.Generic;
 
 namespace CastleMagic.Game.Ability {

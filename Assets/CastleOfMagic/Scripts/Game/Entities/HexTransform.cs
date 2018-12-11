@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 
-namespace CastleMagic.Game.Entites {
+namespace CastleMagic.Game.Entities {
 
     /// <summary>
     /// Represents any object that has a position on the board and cannot be passed through.

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CastleMagic.Game.Entites;
+using CastleMagic.Game.Entities;
 using CastleMagic.Game.GameInfo.PlayerActions;
 using CastleMagic.Game.Selection;
 using CastleMagic.UI;

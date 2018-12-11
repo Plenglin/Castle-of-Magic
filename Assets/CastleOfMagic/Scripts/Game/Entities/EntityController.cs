@@ -6,8 +6,9 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using System;
 using CastleMagic.Game.Ability;
+using Unity.Collections;
 
-namespace CastleMagic.Game.Entites {
+namespace CastleMagic.Game.Entities {
 
     /// <summary>
     /// Represents the class an entity represents.
@@ -18,6 +19,10 @@ namespace CastleMagic.Game.Entites {
     public class EntityController : NetworkBehaviour {
 
         public UnityAction<HexCoord, HexCoord> OnMoved;
+
+        [SerializeField]
+        [ReadOnly]
+        private GhostController ghost = null;
 
         public string displayName;
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using CastleMagic.Game.Entites;
+using CastleMagic.Game.Entities;
 using CastleMagic.Util.Hex;
 using UnityEngine;
 

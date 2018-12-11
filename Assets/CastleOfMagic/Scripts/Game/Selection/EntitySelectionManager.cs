@@ -1,5 +1,5 @@
 ﻿using CastleMagic.Game;
-using CastleMagic.Game.Entites;
+using CastleMagic.Game.Entities;
 using CastleMagic.Game.GameInfo.PlayerActions;
 using CastleMagic.UI.GameUI;
 using CastleMagic.Util.Hex;
@@ -18,8 +18,8 @@ namespace CastleMagic.Game.Selection {
         public NetworkPlayerController player;
         public List<EntityController> slaves;
 
-        private EntityController _selected = null;
-        public EntityController selected {
+        private Selectable _selected = null;
+        public Selectable selected {
             get {
                 return _selected;
             }
@@ -79,33 +79,29 @@ namespace CastleMagic.Game.Selection {
             return coordHit;
         }
 
-        private EntityController HandleBoardSelection(Ray ray) {
+        private Selectable HandleBoardSelection(Ray ray) {
             RaycastHit hit;
 
             int mask = LayerMask.GetMask("Entity");
 
             if (Physics.Raycast(ray, out hit, float.PositiveInfinity, mask)) {
-                var e = hit.collider.GetComponentInParent<EntityController>();
-                if (e.unselectable) {
-                    return null;
-                }
-                return e;
+                return hit.collider.GetComponentInParent<Selectable>();
             } else {
                 var pos = HandleHexSelection(ray);
                 EntityController entity = boardManager.GetEntityAtPosition(pos);
-                return entity;
+                return entity.GetComponent<Selectable>();
             }
         }
 
-        public void SelectEntity(EntityController entity) {
-            Debug.Log("Selected " + entity);
+        public void Select(Selectable obj) {
+            Debug.Log("Selected " + obj);
             highlighters.ForEach(it => {
                 Destroy(it);
             });
             highlighters.Clear();
             var prefab = Resources.Load("Prefabs/UI/HexHighlighter") as GameObject;
-            if (entity == player.ghostPlayer || player.slaves.Contains(entity)) {
-                foreach (Tuple<HexCoord, int> pair in boardManager.board.PerformBFS(entity.HexTransform.Position, entity.energy)) {
+            if (obj == player.ghostPlayer || player.slaves.Contains(obj)) {
+                foreach (Tuple<HexCoord, int> pair in boardManager.board.PerformBFS(obj.HexTransform.Position, obj.energy)) {
                     //Debug.Log("Adding highlighter to " + pair);
                     var obj = Instantiate(prefab);
                     obj.GetComponent<HighlighterController>().destination = pair.Item1;
