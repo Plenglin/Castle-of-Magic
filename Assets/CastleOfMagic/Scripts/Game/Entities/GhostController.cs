@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
-using CastleMagic.Util.Hex;
-using UnityEngine.Networking;
+using Unity.Collections;
 
 namespace CastleMagic.Game.Entities {
 
-    [RequireComponent(typeof(EntityController))]
-    public class EntityCrate : NetworkBehaviour {
+    public class GhostController : MonoBehaviour {
+
+        [SerializeField]
+        [ReadOnly]
+        private EntityController parent;
 
         // Use this for initialization
         void Start() {
+
         }
 
         // Update is called once per frame

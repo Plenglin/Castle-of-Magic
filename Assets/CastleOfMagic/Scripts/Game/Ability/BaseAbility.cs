@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
-using CastleMagic.Game.Entites;
+using CastleMagic.Game.Entities;
 
 namespace CastleMagic.Game.Ability {
 

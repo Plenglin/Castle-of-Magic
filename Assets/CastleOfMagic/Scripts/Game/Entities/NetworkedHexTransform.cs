@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using CastleMagic.Util.Hex;
 
-namespace CastleMagic.Game.Entites {
+namespace CastleMagic.Game.Entities {
 
     [RequireComponent(typeof(HexTransform))]
     public class NetworkedHexTransform : NetworkBehaviour {

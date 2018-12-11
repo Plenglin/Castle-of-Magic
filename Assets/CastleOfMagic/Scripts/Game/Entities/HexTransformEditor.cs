@@ -2,7 +2,7 @@
 using UnityEditor;
 using CastleMagic.Util.Hex;
 
-namespace CastleMagic.Game.Entites {
+namespace CastleMagic.Game.Entities {
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(HexTransform))]
