@@ -1,4 +1,5 @@
 ﻿using CastleMagic.Game;
+using CastleMagic.Game.Selection;
 using CastleMagic.UI;
 using System;
 using System.Collections;

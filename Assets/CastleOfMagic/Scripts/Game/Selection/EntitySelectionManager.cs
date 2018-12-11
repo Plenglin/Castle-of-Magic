@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace CastleMagic.UI {
+namespace CastleMagic.Game.Selection {
     public class EntitySelectionManager : MonoBehaviour {
 
         public UnityAction OnSelectionChange;
@@ -51,7 +51,6 @@ namespace CastleMagic.UI {
                 if (selected == null) {
                     selected = HandleBoardSelection(ray);
                     Debug.Log("clicked on entity " + selected);
-                    OnSelectionChange.Invoke();
                 } else {
                     var dest = HandleHexSelection(ray);
                     if (!player.ghostPlayer.HexTransform.Position.Equals(dest)) {

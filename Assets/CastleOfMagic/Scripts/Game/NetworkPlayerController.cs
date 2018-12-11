@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CastleMagic.Game.Entites;
 using CastleMagic.Game.GameInfo.PlayerActions;
+using CastleMagic.Game.Selection;
 using CastleMagic.UI;
 using CastleMagic.UI.GameUI;
 using CastleMagic.Util.Hex;
@@ -9,8 +10,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace CastleMagic.Game
-{
+namespace CastleMagic.Game {
     public class NetworkPlayerController : NetworkBehaviour {
 
         public EntityController player;
@@ -55,7 +55,7 @@ namespace CastleMagic.Game
 
             if (!isLocalPlayer) return;
 
-            GameObject.FindWithTag("SelectionManager").GetComponent<EntitySelectionManager>().player = this;
+            FindObjectOfType<EntitySelectionManager>().player = this;
             actionsDisplay = FindObjectOfType<QueuedActionsDisplay>();
 
             ghostPlayer = Instantiate(ghostPrefab).GetComponent<EntityController>();
