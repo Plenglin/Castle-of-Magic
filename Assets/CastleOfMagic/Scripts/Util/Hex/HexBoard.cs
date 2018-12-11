@@ -35,25 +35,33 @@ namespace CastleMagic.Util.Hex {
         /// <param name="canPassThrough">are you allowed to pass through this tile?</param>
         /// <returns>tuple of (dudes that you can land on, energy left when you land on it)</returns>
         public IEnumerable<Tuple<HexCoord, int>> PerformBFS(HexCoord start, int startingEnergy, Predicate<HexCoord> canPassThrough) {
+            yield return Tuple.Create(start, startingEnergy);
+            if (startingEnergy <= 0) {
+                yield break;
+            }
+
             var toVisit = new Queue<Tuple<HexCoord, int>>();
-            var visited = new HashSet<HexCoord>();
-            toVisit.Enqueue(Tuple.Create(start, startingEnergy));
+            var visited = new HashSet<HexCoord>{start};
+
+            start.GetNeighbors().ForEach(c => toVisit.Enqueue((Tuple.Create(c, startingEnergy - 1))));
             while (toVisit.Count > 0) {
                 var pair = toVisit.Dequeue();
                 var coord = pair.Item1;
                 var energyLeft = pair.Item2;
-                if (!visited.Contains(coord) && IsValidPosition(coord) && (!coord.Equals(start) || canPassThrough(coord))) {
-                    visited.Add(coord);
+                if (visited.Contains(coord)) {
+                    continue;
+                }
+                visited.Add(coord);
+                if (IsValidPosition(coord) && canPassThrough(coord)) {
+                    Debug.Log($"doing thing on {coord}");
                     yield return Tuple.Create(coord, energyLeft);
                     int newEnergy = energyLeft - 1;
                     if (energyLeft != 0) {
-                        foreach (var n in coord.GetNeighbors())
-                        {
+                        foreach (var n in coord.GetNeighbors()) {
                             toVisit.Enqueue(Tuple.Create(n, newEnergy));
                         }
                         HexCoord wormholeEndpoint;
-                        if (wormholes.TryGetValue(coord, out wormholeEndpoint))
-                        {
+                        if (wormholes.TryGetValue(coord, out wormholeEndpoint)) {
                             toVisit.Enqueue(Tuple.Create(wormholeEndpoint, newEnergy));
                         }
                     }

@@ -38,7 +38,7 @@ namespace CastleMagic.Game {
             var prefab = Resources.Load("Prefabs/Entities/EntityCrate") as GameObject;
             EntityController crate = Instantiate(prefab).GetComponent<EntityController>();
 
-            boardManager[0].InitializeEntity(crate, HexCoord.CreateXY(4, 4));
+            boardManager[0].InitializeEntity(crate, HexCoord.CreateXY(2, 4));
         }
 
         void Update() {
