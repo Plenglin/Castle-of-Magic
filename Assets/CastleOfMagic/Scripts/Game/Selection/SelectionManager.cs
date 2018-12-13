@@ -32,22 +32,24 @@ namespace CastleMagic.Game.Selection {
         private GameObject highlighterPrefab;
 
         private GameObjectPool highlighterPool;
-
-        private GameObject CreateHighlighter() {
-            return Instantiate(highlighterPrefab);
-        }
+        private int mask;
 
         private void Start() {
+            infoPane = GameObject.FindWithTag("InfoPane").GetComponent<RectTransform>();
+
             var board = GameObject.FindWithTag("Board");
             plane = board.GetComponent<HexPlane>();
             boardManager = board.GetComponent<BoardManager>();
-            infoPane = GameObject.FindWithTag("InfoPane").GetComponent<RectTransform>();
+
             highlighterPrefab = Resources.Load("Prefabs/UI/HexHighlighter") as GameObject;
-            highlighterPool = new GameObjectPool(CreateHighlighter);
+            highlighterPool = new GameObjectPool(() => Instantiate(highlighterPrefab));
+
+            mask = LayerMask.GetMask("Selectable");
 
             // Entity movement highlighter behavior
             OnSelectionChange += () => {
                 var entity = selected?.GetComponent<EntityController>();
+                Debug.Log($"Creating highlighters for {entity}");
                 if (entity != null) {
                     var coords = boardManager.board.PerformBFS(
                             entity.HexTransform.Position,
@@ -55,16 +57,10 @@ namespace CastleMagic.Game.Selection {
                             x => !boardManager.IsPositionOccupied(x))
                         .Select(x => x.Item1)
                         .ToList();
-                    highlighterPool.Acquire(coords.Count());
-                    foreach (var pair in coords.Zip(highlighterPool.GetObjects(), Tuple.Create)) {
-                        pair.Item2.GetComponent<HexTransform>().Position = pair.Item1;
-                    }
+                    highlighterPool.Acquire(coords, (obj, coord) => {
+                        obj.GetComponent<HexTransform>().Position = coord;
+                    });
                 }
-            };
-
-            // Invoke selectable's own listeners
-            OnSelectionChange += () => {
-
             };
 
             OnHexSelection += () => {
@@ -90,8 +86,18 @@ namespace CastleMagic.Game.Selection {
                 selected = newSelection;
 
                 if (newSelection != oldSelection) {
+                    oldSelection?.OnDeselected(infoPane);
+                    newSelection?.OnSelected(infoPane);
+
                     OnSelectionChange.Invoke();
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                selected?.OnDeselected(infoPane);
+                selected = null;
+                OnSelectionChange.Invoke();
+                ClearSelection();
             }
         }
 
@@ -107,15 +113,12 @@ namespace CastleMagic.Game.Selection {
 
         private Selectable HandleBoardSelection(Ray ray) {
             RaycastHit hit;
-
-            int mask = LayerMask.GetMask("Entity");
-
             if (Physics.Raycast(ray, out hit, float.PositiveInfinity, mask)) {
                 return hit.collider.GetComponentInParent<Selectable>();
             } else {
                 var pos = HandleHexSelection(ray);
                 EntityController entity = boardManager.GetEntityAtPosition(pos);
-                return entity.GetComponent<Selectable>();
+                return entity?.GetComponent<Selectable>();
             }
         }
 

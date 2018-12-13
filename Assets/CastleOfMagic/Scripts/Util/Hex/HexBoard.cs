@@ -53,7 +53,6 @@ namespace CastleMagic.Util.Hex {
                 }
                 visited.Add(coord);
                 if (IsValidPosition(coord) && canPassThrough(coord)) {
-                    Debug.Log($"doing thing on {coord}");
                     yield return Tuple.Create(coord, energyLeft);
                     int newEnergy = energyLeft - 1;
                     if (energyLeft != 0) {

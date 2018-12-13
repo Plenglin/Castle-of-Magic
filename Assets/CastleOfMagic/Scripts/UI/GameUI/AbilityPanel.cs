@@ -31,7 +31,7 @@ namespace CastleMagic.UI.GameUI {  // TODO: don't double UI
         // Update is called once per frame
         private void OnSelectionChange() {
             Debug.Log("Selection changed. Updating ability list");
-            var entity = selection.Value.selected.GetComponent<EntityController>();
+            var entity = selection.Value.selected?.GetComponent<EntityController>();
 
             if (entity != null && entity.abilities.Count > 0) {
                 // Generate buttons

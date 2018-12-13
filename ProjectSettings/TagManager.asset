@@ -9,6 +9,8 @@ TagManager:
   - Board
   - SelectionManager
   - GameManager
+  - NetworkGameManager
+  - InfoPane
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - 
   - Entity
   - Floor
-  - 
+  - Selectable
   - 
   - 
   - 

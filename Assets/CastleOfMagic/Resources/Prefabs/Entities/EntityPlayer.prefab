@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 114317857927119180}
   - component: {fileID: 114007689555967320}
   - component: {fileID: 114972879311162542}
-  m_Layer: 8
+  - component: {fileID: 114046265438418526}
+  m_Layer: 10
   m_Name: EntityPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +42,7 @@ GameObject:
   - component: {fileID: 33991819974968468}
   - component: {fileID: 65242888130995026}
   - component: {fileID: 23797284090642652}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +60,7 @@ GameObject:
   - component: {fileID: 33529838189890098}
   - component: {fileID: 136683705720132434}
   - component: {fileID: 23681133663069062}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,15 +215,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6868bcd8f255e43669cac5554d28a1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ghost: {fileID: 0}
   displayName: Player
   maxEnergy: 3
   energy: 3
   maxHealth: 0
   health: 0
   invunerable: 0
+  unselectable: 0
   abilities:
   - {fileID: 11400000, guid: 0ee5b02924b260c4b84278ff2541705e, type: 2}
   - {fileID: 11400000, guid: 0ee5b02924b260c4b84278ff2541705e, type: 2}
+--- !u!114 &114046265438418526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1153507291330390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb292adc8c61b84191432020b455616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114317857927119180
 MonoBehaviour:
   m_ObjectHideFlags: 1

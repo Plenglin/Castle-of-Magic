@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 114528895457168998}
   - component: {fileID: 114934786133064616}
   - component: {fileID: 114335956849376156}
-  m_Layer: 8
+  - component: {fileID: 114565592707798940}
+  m_Layer: 10
   m_Name: GhostEntityPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +41,7 @@ GameObject:
   - component: {fileID: 33971297636962966}
   - component: {fileID: 23784456156507100}
   - component: {fileID: 136547663471969284}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6868bcd8f255e43669cac5554d28a1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ghost: {fileID: 0}
   displayName: Player Ghost
   maxEnergy: 0
   energy: 0
@@ -134,6 +136,7 @@ MonoBehaviour:
   health: 0
   invunerable: 1
   unselectable: 0
+  abilities: []
 --- !u!114 &114528895457168998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -143,6 +146,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 855e20cd3f3f744be8e08e310b48209f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114565592707798940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1323441235646608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb292adc8c61b84191432020b455616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114934786133064616
