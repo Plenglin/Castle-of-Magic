@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.ComponentModel;
 
 namespace CastleMagic.Game.Entities {
 
     public class GhostController : MonoBehaviour {
 
         [SerializeField]
-        [ReadOnly]
+        [ReadOnly(true)]
         private EntityController parent;
 
         // Use this for initialization

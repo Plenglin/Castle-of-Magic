@@ -55,7 +55,7 @@ namespace CastleMagic.Game {
 
             if (!isLocalPlayer) return;
 
-            FindObjectOfType<EntitySelectionManager>().player = this;
+            FindObjectOfType<SelectionManager>().player = this;
             actionsDisplay = FindObjectOfType<QueuedActionsDisplay>();
 
             ghostPlayer = Instantiate(ghostPrefab).GetComponent<EntityController>();

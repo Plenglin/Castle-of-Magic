@@ -45,6 +45,7 @@ namespace CastleMagic.Game.Selection {
             highlighterPrefab = Resources.Load("Prefabs/UI/HexHighlighter") as GameObject;
             highlighterPool = new GameObjectPool(CreateHighlighter);
 
+            // Entity movement highlighter behavior
             OnSelectionChange += () => {
                 var entity = selected?.GetComponent<EntityController>();
                 if (entity != null) {
@@ -61,6 +62,11 @@ namespace CastleMagic.Game.Selection {
                 }
             };
 
+            // Invoke selectable's own listeners
+            OnSelectionChange += () => {
+
+            };
+
             OnHexSelection += () => {
                 var entity = selected?.GetComponent<EntityController>();
                 if (entity != null) {
@@ -69,11 +75,9 @@ namespace CastleMagic.Game.Selection {
                         //player.CmdMoveEntity(selected.GetInstanceID(), (HexCoord) dest);
                         // needs some sort of "ghost" player to represent movement, idk
                         player.AddTurnAction(new TurnActionMove(player, player.ghostPlayer.HexTransform.Position, (HexCoord)dest));
-                        ClearSelection();
-                    } else {
-                        ClearSelection();
                     }
                 }
+                ClearSelection();
             };
         }
 
@@ -115,38 +119,9 @@ namespace CastleMagic.Game.Selection {
             }
         }
 
-        public void Select(Selectable obj) {
-            Debug.Log("Selected " + obj);
-            if (obj == null) {
-
-            }
-
-            obj.OnSelected(infoPane);
-            var entity = obj.GetComponent<EntityController>();
-            if (entity != null) {
-                SelectEntity(entity);
-            }
-        }
-
-        private void SelectEntity(EntityController entity) {
-            highlighters.ForEach(it => {
-                Destroy(it);
-            });
-            highlighters.Clear();
-            var prefab = Resources.Load("Prefabs/UI/HexHighlighter") as GameObject;
-            if (entity == player.ghostPlayer || player.slaves.Contains(entity)) {
-                foreach (Tuple<HexCoord, int> pair in boardManager.board.PerformBFS(entity.HexTransform.Position, entity.energy, (x) => !boardManager.IsPositionOccupied(x))) {
-                    var obj = Instantiate(prefab);
-                    obj.GetComponent<HighlighterController>().destination = pair.Item1;
-                    highlighters.Add(obj);
-                }
-            }
-        }
-
         public void ClearSelection() {
             selected = null;
-            highlighters.ForEach(Destroy);
-            highlighters.Clear();
+            highlighterPool.Acquire(0);
         }
 
     }

@@ -1,6 +1,8 @@
 ﻿using CastleMagic.Game;
+using CastleMagic.Game.Entities;
 using CastleMagic.Game.Selection;
 using CastleMagic.UI;
+using CastleMagic.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,39 +17,39 @@ namespace CastleMagic.UI.GameUI {  // TODO: don't double UI
         private Lazy<SelectionManager> selection = new Lazy<SelectionManager>(() => FindObjectOfType<SelectionManager>());
         private GameObject buttonPrefab;
 
+        private GameObjectPool pool;
+
         // Use this for initialization
-        void Start() {
+        private void Start() {
             buttonPrefab = Resources.Load("Prefabs/UI/AbilityButton") as GameObject;
             selection.Value.OnSelectionChange += OnSelectionChange;
+            pool = new GameObjectPool(() => {
+                return Instantiate(buttonPrefab, panel.transform);
+            });
         }
 
         // Update is called once per frame
-        void OnSelectionChange() {
+        private void OnSelectionChange() {
             Debug.Log("Selection changed. Updating ability list");
-            var selected = selection.Value.selected;
-            var rt = panel.GetComponent<RectTransform>();
+            var entity = selection.Value.selected.GetComponent<EntityController>();
 
-            foreach (Transform child in panel.transform) {
-                Destroy(child.gameObject);
-            }
-
-            if (selected != null && selected.abilities.Count > 0) {
-                Debug.Log($"generating ability panel {selected.abilities}");
+            if (entity != null && entity.abilities.Count > 0) {
                 // Generate buttons
+                Debug.Log($"generating ability panel {entity.abilities}");
                 int i = 0;
-                foreach (var ab in selected.abilities) {
-                    GameObject child = Instantiate(buttonPrefab, panel.transform);
+                pool.Acquire(entity.abilities, (child, ab) => {
                     var crt = child.GetComponent<RectTransform>();
                     crt.anchoredPosition = new Vector3(0f, -5 - i * 40f);
-                    var bt = child.GetComponent<AbilityButton>();
-                    bt.SetAbility(ab);
-                    bt.parent = this;
+                    var btn = child.GetComponent<AbilityButton>();
+                    btn.SetAbility(ab);
+                    btn.parent = this;
                     i++;
-                }
+                });
 
-                // Generate Panel
+                // Set panel size
+                var rt = panel.GetComponent<RectTransform>();
                 rt.anchoredPosition = new Vector3(0, 0);
-                rt.sizeDelta = new Vector2(50, 10 + 50f * selected.abilities.Count);
+                rt.sizeDelta = new Vector2(50, 10 + 50f * entity.abilities.Count);
                 panel.SetActive(true);
             } else {
                 panel.SetActive(false);
