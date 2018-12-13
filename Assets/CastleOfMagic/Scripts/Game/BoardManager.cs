@@ -1,6 +1,7 @@
 ﻿using CastleMagic.Game.Entities;
 using CastleMagic.Util.Hex;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,6 +19,7 @@ namespace CastleMagic.Game {
 
         private void Start() {
             board = new HexBoard(100, 100);
+            InitializeWalls();
         }
 
         public bool MoveEntity(HexCoord from, HexCoord to, bool consumeEnergy = false) {
@@ -103,6 +105,18 @@ namespace CastleMagic.Game {
 
         public bool IsPositionOccupied(HexCoord pos) {
             return entitiesByPosition.ContainsKey(pos);
+        }
+
+        public void InitializeWalls() {
+            var prefab = Resources.Load("Prefabs/LARGEWALL") as GameObject;
+            for(int i = 0; i < board.openTiles.Length; i++) {
+                for (int j = 0; j < board.openTiles[i].Length; j++) {
+                    if(!board.openTiles[i][j]) {
+                        GameObject obj = Instantiate(prefab);
+                        obj.GetComponent<HexTransform>().Position = HexCoord.CreateXY(i, j);
+                    }
+                }
+            }
         }
     }
 
