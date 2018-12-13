@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33934712009471680}
   - component: {fileID: 23770339339050884}
   - component: {fileID: 136870192771668834}
+  - component: {fileID: 114520388868659234}
   m_Layer: 0
   m_Name: LARGEWALL
   m_TagString: Untagged
@@ -84,6 +85,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1329956349827104}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114520388868659234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329956349827104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855e20cd3f3f744be8e08e310b48209f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136870192771668834
 CapsuleCollider:
   m_ObjectHideFlags: 1

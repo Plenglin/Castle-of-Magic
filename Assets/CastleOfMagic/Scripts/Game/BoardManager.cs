@@ -19,6 +19,9 @@ namespace CastleMagic.Game {
 
         private void Start() {
             board = new HexBoard(100, 100);
+            board.openTiles[1][1] = false;
+            board.openTiles[1][2] = false;
+            board.openTiles[1][3] = false;
             InitializeWalls();
         }
 
