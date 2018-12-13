@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Unity.Collections;
 
 namespace CastleMagic.Game.Entities {
 

@@ -12,7 +12,7 @@ namespace CastleMagic.UI.GameUI {  // TODO: don't double UI
     public class AbilityPanel : MonoBehaviour {
 
         public GameObject panel;
-        private Lazy<EntitySelectionManager> selection = new Lazy<EntitySelectionManager>(() => FindObjectOfType<EntitySelectionManager>());
+        private Lazy<SelectionManager> selection = new Lazy<SelectionManager>(() => FindObjectOfType<SelectionManager>());
         private GameObject buttonPrefab;
 
         // Use this for initialization

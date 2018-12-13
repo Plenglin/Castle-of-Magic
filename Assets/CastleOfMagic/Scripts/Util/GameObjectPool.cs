@@ -15,17 +15,20 @@ namespace CastleMagic.Util {
             this.factory = factory;
         }
 
-        public IEnumerator<GameObject> Acquire(int n) {
+        public void Acquire(int n) {
             inUse = n;
             while (pool.Count > inUse) {
                 UnityEngine.Object.Destroy(pool.Pop());
             }
             while (pool.Count < inUse) {
-                UnityEngine.Object.Instantiate(factory.Invoke());
+                pool.Push(UnityEngine.Object.Instantiate(factory.Invoke()));
             }
-            return pool.GetEnumerator();
         }
-        
+
+        public IReadOnlyCollection<GameObject> GetObjects() {
+            return pool;
+        }
+
     }
 
 }
