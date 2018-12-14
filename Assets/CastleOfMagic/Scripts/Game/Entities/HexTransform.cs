@@ -48,8 +48,7 @@ namespace CastleMagic.Game.Entities {
             return pos1.Equals(pos2);
         }
 
-        public static bool operator !=(HexTransform pos1, HexTransform pos2)
-        {
+        public static bool operator !=(HexTransform pos1, HexTransform pos2) {
             return !(pos1 == pos2);
         }
     }

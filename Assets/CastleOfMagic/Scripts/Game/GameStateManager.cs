@@ -12,7 +12,6 @@ namespace CastleMagic.Game {
 
         private NetworkLobbyManager networkManager;
         private BoardManager[] boardManager;
-        //private PlayerController[] players;
         private int numPlayers;
         private HashSet<NetworkPlayerController> players;
 
@@ -37,36 +36,37 @@ namespace CastleMagic.Game {
             //very temprorary
             var prefab = Resources.Load("Prefabs/Entities/EntityCrate") as GameObject;
             EntityController crate = Instantiate(prefab).GetComponent<EntityController>();
-
             boardManager[0].InitializeEntity(crate, HexCoord.CreateXY(2, 4));
         }
 
         void Update() {
-            // lol just go fast
-            if (isServer) {
-                if (requestedEndTurnPlayers.Count >= numPlayers) {
-                    RpcEndTurn();
-                }
-            }
         }
 
         public void RequestEndTurn(NetworkPlayerController player) {
             requestedEndTurnPlayers.Enqueue(player);
             playerActionTable[player] = player.turnActionsQueued;
+            RpcEndTurn();
         }
 
+        /// <summary>
+        /// Only triggers when every player has ended their turn. (hopefully)
+        /// </summary>
         [ClientRpc]
         void RpcEndTurn() {
-            turnNumber++;
-            while(requestedEndTurnPlayers.Count > 0) {
-                NetworkPlayerController player = requestedEndTurnPlayers.Dequeue();
-                Debug.Log($"ENDING TURN OF A PLAYer {player}");
-                LinkedList<TurnAction> actions = playerActionTable[player];
-                while(!(actions.Count == 0)) {
-                    actions.Last.Value.ExecuteAction();
-                    actions.RemoveLast();
+            if (requestedEndTurnPlayers.Count >= numPlayers) {
+                turnNumber++;
+                while (requestedEndTurnPlayers.Count > 0)
+                {
+                    NetworkPlayerController player = requestedEndTurnPlayers.Dequeue();
+                    Debug.Log($"ENDING TURN OF A PLAYer {player}");
+                    LinkedList<TurnAction> actions = playerActionTable[player];
+                    while (!(actions.Count == 0))
+                    {
+                        actions.Last.Value.ExecuteAction();
+                        actions.RemoveLast();
+                    }
+                    player.OnTurnEnd();
                 }
-                player.OnTurnEnd();
             }
         }
     }

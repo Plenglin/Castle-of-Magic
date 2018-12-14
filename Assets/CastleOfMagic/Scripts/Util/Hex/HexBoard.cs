@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.IO;
 
 namespace CastleMagic.Util.Hex {
 
@@ -18,6 +19,11 @@ namespace CastleMagic.Util.Hex {
         private readonly Dictionary<HexCoord, HexCoord> wormholes = new Dictionary<HexCoord, HexCoord>();
         private readonly int width, height;
 
+        private readonly string RESOURCE_PATH = "Assets/Resources/";
+
+        private readonly string OPEN_TILE_SYMBOL = "O";
+        private readonly string CLOSED_TILE_SYMBOL = "X";
+
         public HexBoard(int width, int height) {
             this.width = width;
             this.height = height;
@@ -25,6 +31,14 @@ namespace CastleMagic.Util.Hex {
             for (int i=0; i < width; i++) {
                 openTiles[i] = new BitArray(height, true);
             }
+        }
+
+        public HexBoard(string filePath) {
+            string path = RESOURCE_PATH + filePath;
+            StreamReader stringread = new StreamReader(path);
+            string textboard = stringread.ReadToEnd();
+            // make this work later and not shit ay lmao
+            // this should probably go into another class
         }
         
         /// <summary>
