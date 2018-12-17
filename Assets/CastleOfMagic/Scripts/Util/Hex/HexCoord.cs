@@ -121,6 +121,9 @@ namespace CastleMagic.Util.Hex {
             return o.x == x && o.y == y && o.z == z;
         }
 
+        public override int GetHashCode() {
+            return (x * 255 - 1) + y;
+        }
     }
 
     public struct PositionDelta {
