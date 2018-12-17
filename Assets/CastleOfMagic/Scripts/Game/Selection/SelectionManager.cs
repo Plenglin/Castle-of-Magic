@@ -58,7 +58,9 @@ namespace CastleMagic.Game.Selection {
                         .Select(x => x.Item1)
                         .ToList();
                     highlighterPool.Acquire(coords, (obj, coord) => {
-                        obj.GetComponent<HexTransform>().Position = coord;
+                        var ht = obj.GetComponent<HexTransform>();
+                        ht.Position = coord;
+                        ht.UpdatePhysicalPosition();
                     });
                 }
             };
