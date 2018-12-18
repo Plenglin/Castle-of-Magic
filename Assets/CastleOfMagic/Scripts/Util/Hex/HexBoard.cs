@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace CastleMagic.Util.Hex {
 
@@ -39,6 +40,9 @@ namespace CastleMagic.Util.Hex {
             string textboard = stringread.ReadToEnd();
             // make this work later and not shit ay lmao
             // this should probably go into another class
+            Regex.Replace(textboard, " ", "");
+            string[] boardsplit = textboard.Split('\n');
+            
         }
         
         /// <summary>
