@@ -48,13 +48,12 @@ namespace CastleMagic.Util.Hex {
                 Debug.Log(boardsplit[i]);
                 openTiles[i] = new BitArray(boardsplit[i].Length, true);
                 for (int j = boardsplit[i].Length - 1; j >= 0; j--) {
-                    int state = int.Parse(boardsplit[i][j].ToString());
+                    int state = int.Parse(boardsplit[boardsplit.Length - i - 1][boardsplit[i].Length - j - 1].ToString());
                     if(state == 1) {
                         openTiles[i][j] = false;
                     }
                 }
-            }
-            
+            }   
         }
         
         /// <summary>

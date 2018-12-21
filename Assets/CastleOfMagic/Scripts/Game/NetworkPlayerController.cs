@@ -50,7 +50,7 @@ namespace CastleMagic.Game {
             player = Instantiate(prefab).GetComponent<EntityController>();
             Debug.Log(player);
 
-            boardManager.InitializeEntity(player, HexCoord.CreateXY(0, 4));
+            boardManager.InitializeEntity(player, HexCoord.CreateXY(0, 3));
             slaves.Add(player);
 
             if (!isLocalPlayer) return;
