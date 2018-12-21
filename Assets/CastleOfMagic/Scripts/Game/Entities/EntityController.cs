@@ -41,6 +41,8 @@ namespace CastleMagic.Game.Entities {
         public bool invunerable;
         public bool unselectable;
 
+        public GameObject ghostTemplate;
+
         private bool isPlayerControlled = false;
 
         public HexTransform HexTransform {

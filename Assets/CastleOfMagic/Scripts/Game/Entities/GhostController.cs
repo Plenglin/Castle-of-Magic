@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.ComponentModel;
+using CastleMagic.Game.Selection;
 
 namespace CastleMagic.Game.Entities {
 
+    [RequireComponent(typeof(HexTransform), typeof(Selectable))]
     public class GhostController : MonoBehaviour {
 
         [SerializeField]
         [ReadOnly(true)]
-        private EntityController parent;
+        public EntityController parent;
 
-        // Use this for initialization
         void Start() {
 
         }

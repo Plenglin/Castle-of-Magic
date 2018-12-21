@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4496950604007880}
   - component: {fileID: 114537716412799910}
-  - component: {fileID: 114758162325169906}
   m_Layer: 2
   m_Name: HexHighlighter
   m_TagString: Untagged
@@ -124,17 +123,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 855e20cd3f3f744be8e08e310b48209f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114758162325169906
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1294071678336838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2caa1c6ab074c4e6ca78a42ded657afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!136 &136212237318807120
