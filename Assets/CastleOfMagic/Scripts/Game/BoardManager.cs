@@ -18,10 +18,7 @@ namespace CastleMagic.Game {
         public UnityAction<EntityController> OnEntityDestroyed;
 
         private void Start() {
-            board = new HexBoard(100, 100);
-            board.openTiles[1][1] = false;
-            board.openTiles[1][2] = false;
-            board.openTiles[1][3] = false;
+            board = new HexBoard("board1.txt");
             InitializeWalls();
         }
 
