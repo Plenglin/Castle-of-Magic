@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace CastleMagic.Util.Hex {
 
@@ -19,7 +20,7 @@ namespace CastleMagic.Util.Hex {
         private readonly Dictionary<HexCoord, HexCoord> wormholes = new Dictionary<HexCoord, HexCoord>();
         private readonly int width, height;
 
-        private readonly string RESOURCE_PATH = "Assets/Resources/";
+        private readonly string RESOURCE_PATH = "Assets/CastleOfMagic/Resources/";
 
         private readonly string OPEN_TILE_SYMBOL = "O";
         private readonly string CLOSED_TILE_SYMBOL = "X";
@@ -33,12 +34,27 @@ namespace CastleMagic.Util.Hex {
             }
         }
 
+        // this is jank and needs to be fix
         public HexBoard(string filePath) {
             string path = RESOURCE_PATH + filePath;
             StreamReader stringread = new StreamReader(path);
             string textboard = stringread.ReadToEnd();
             // make this work later and not shit ay lmao
             // this should probably go into another class
+            textboard = Regex.Replace(textboard, " ", "");
+            string[] boardsplit = textboard.Split('\n');
+            openTiles = new BitArray[boardsplit.Length];
+            for (int i = boardsplit.Length - 1; i >= 0; i--) {
+                Debug.Log(boardsplit[i]);
+                openTiles[i] = new BitArray(boardsplit[i].Length, true);
+                for (int j = boardsplit[i].Length - 1; j >= 0; j--) {
+                    int state = int.Parse(boardsplit[i][j].ToString());
+                    if(state == 1) {
+                        openTiles[i][j] = false;
+                    }
+                }
+            }
+            
         }
         
         /// <summary>
